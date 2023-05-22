@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>表单</title>
+    </head>
+    <body>
+        <form action="https://www.baidu.com" method="get">
+            <label for="username">用户名: </label>
+            <input type="text" placeholder="请输入用户名" name="username" id="username">
+            <br>
+            <label for="password">密码: </label>
+            <input type="password" placeholder="请输入密码" name="password" id="password">
+            <br>
+            <label>性别: </label>
+            <input type="radio" name="gender" value="男" id="male"><label for="male">男</label>
+            <input type="radio" name="gender" value="女" id="female"><label for="female">女</label>
+            <br>
+            <label>兴趣爱好: </label>
+            <input type="checkbox" name="hobby" value="smoke" id="smoke"><label for="smoke">抽烟</label>
+            <input type="checkbox" name="hobby" value="drink" id="drink"><label for="drink">喝酒</label>
+            <input type="checkbox" name="hobby" value="perm" id="perm"><label for="perm">烫头</label>
+            <br>
+            <label for="birthday">生日: </label>
+            <input type="date" name="birthday" id="birthday">
+            <br>
+            <label for="avatar">头像: </label>
+            <input type="file" name="avatar" id="avatar">
+            <br>
+            <label for="city">城市: </label>
+            <select name="city" id="city">
+                <option value="bj">北京</option>
+                <option value="sh">上海</option>
+                <option value="gz">广州</option>
+                <option value="sz">深圳</option>
+            </select>
+            <br>
+            <input type="submit" value="登录">
+            <input type="reset" value="重置">
+            <input type="button" value="按钮">
+            <hr>
+            <button type="submit">登录</button>
+            <button type="reset">重置</button>
+            <button type="button">按钮</button>
+        </form>
+    </body>
+</html>

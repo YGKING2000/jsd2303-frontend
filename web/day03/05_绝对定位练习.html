@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>绝对定位练习</title>
+        <style>
+            div {
+                position: relative;
+                width: 300px;
+                background-color: rgba(0, 0, 0, .3);
+            }
+
+            input {
+                border: none;
+                width: 261px;
+                margin: 10px 0 0 10px;
+                padding: 10px 0 10px 20px;
+            }
+
+            img {
+                position: absolute;
+                top: 13px;
+                right: 30px;
+            }
+
+            p {
+                margin: 0;
+                padding: 0 0 10px 10px;
+                color: red;
+                font-size: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <div>
+            <label for="username"></label>
+            <input type="text" placeholder="请输入用户名" id="username">
+            <img src="yhm.png" alt="">
+            <p>用户名不能为空</p>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>选择器练习</title>
+        <style>
+            ul li:first-child {
+                color: green;
+            }
+
+            ul li:nth-child(2), body h1:first-of-type {
+                color: blue;
+            }
+
+            h1, h2 {
+                background-color: yellow;
+            }
+
+            input[type="submit"] {
+                background-color: red;
+            }
+
+            input[type="button"] {
+                color: pink;
+            }
+
+            * {
+                border: 1px solid green;
+            }
+        </style>
+    </head>
+    <body>
+        <ul>
+            <li>张学友</li>
+            <li>刘德华</li>
+            <li>郭富城</li>
+        </ul>
+        <h1>悟空</h1>
+        <h1>八戒</h1>
+        <h1>唐僧</h1>
+        <h2>刘备</h2>
+        <input type="submit">
+        <input type="button" value="按钮">
+    </body>
+</html>

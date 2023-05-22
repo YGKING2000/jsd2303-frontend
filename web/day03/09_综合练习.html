@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>综合练习</title>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+
+            #main {
+                width: 1000px;
+                margin: 0 auto;
+                height: 720px;
+            }
+
+            #top {
+                width: 100%;
+                height: 330px;
+                margin-bottom: 10px;
+            }
+
+            #top_left {
+                float: left;
+                width: 660px;
+                height: 100%;
+                background-color: #e8e8e8;
+                margin-right: 10px;
+                box-sizing: border-box;
+                padding: 80px 0 0 40px;
+                position: relative;
+            }
+
+            #top_left h1, #top_right h1 {
+                font-weight: normal;
+                font-family: simhei, Arial,Helvetica, sans-serif;
+                margin-bottom: 12px;
+            }
+
+            #top_left p:first-of-type, #top_right p:first-of-type {
+                font-size: 12px;
+                margin-bottom: 24px;
+            }
+
+            #top_left p:nth-of-type(2), #top_right p:nth-of-type(2) {
+                font-size: 24px;
+                color: #0aa1ed;
+                margin-bottom: 12px;
+            }
+
+            #top_left a, #top_right a {
+                display: inline-block;
+                text-decoration: none;
+                width: 132px;
+                height: 40px;
+                color: white;
+                background-color: #0aa1ed;
+                border-radius: 2px;
+                text-align: center;
+                line-height: 40px;
+                font-size: 20px;
+            }
+
+            #top_left img {
+                position: absolute;
+                top: 15px;
+                right: 30px;
+                width: 290px;
+                height: 290px;
+                transition: 500ms 0s linear;
+            }
+
+            #top_left img:hover, #top_right img:hover {
+                transform: scale(1.08);
+            }
+
+            #top_right {
+                float: right;
+                width: 330px;
+                height: 100%;
+                box-sizing: border-box;
+                padding: 20px 0 0 20px;
+                position: relative;
+                background-color: #e8e8e8;
+            }
+
+            #top_right img {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                width: 230px;
+                height: 215px;
+                transition: 500ms 0s linear;
+            }
+
+            #bottom_left {
+                width: 376px;
+                height: 233px;
+                float: left;
+                background-color: #e8e8e8;
+            }
+
+            #bottom_left #bottom_left_top {
+                padding-top: 7px;
+                height: 35px;
+                color: white;
+                padding-left: 12px;
+                background-color: #0aa1ed;
+            }
+
+            #bottom_left img {
+                width: 29px;
+                height: 20px;
+                vertical-align: middle;
+            }
+
+            #bottom_left .main {
+                color: #0aa1ed;
+                font-size: 12px;
+                padding-left: 12px;
+            }
+
+            #bottom_left p {
+                box-sizing: border-box;
+                margin: 20px 0 6px;
+            }
+
+            #bottom_left ul {
+                list-style: none;
+                overflow: hidden;
+            }
+
+            #bottom_left ul > li {
+                float: left;
+                margin-right: 10px;
+            }
+
+            #bottom_right {
+                float: right;
+            }
+
+            #bottom_right div {
+                float: left;
+                width: 198px;
+                height: 233px;
+                margin-right: 10px;
+                background-color: #e8e8e8;
+                text-align: center;
+                font-size: 12px;
+            }
+
+            #bottom_right div:last-of-type {
+                margin-right: 0;
+            }
+
+            #bottom_right img {
+                width: 198px;
+                height: 136px;
+            }
+
+            #bottom_right div > p:first-of-type {
+                margin: 0 0 6px 0;
+            }
+
+            #bottom_right div > p:nth-of-type(2) {
+                margin: 6px 0;
+                color: #0aa1ed;
+                font-weight: bold;
+            }
+
+            #bottom_right a {
+                display: inline-block;
+                width: 100px;
+                height: 24px;
+                text-decoration: none;
+                color: white;
+                background-color: #0aa1ed;
+                line-height: 24px;
+                border-radius: 2px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="main">
+            <div id="top">
+                <div id="top_left">
+                    <h1>灵越 燃7000系列</h1>
+                    <p>酷睿双核i5处理器|256GB SSD| 8GB内存<br>
+                        英特尔HD显卡620含共享显卡内存</p>
+                    <p>￥4999.00</p>
+                    <a href="">查看详情</a>
+                    <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img1.png" alt="">
+                </div>
+                <div id="top_right">
+                    <h1>颜值 框不住</h1>
+                    <p>酷睿双核i5处理器|256GB SSD| 8GB内存<br>
+                        英特尔HD显卡620含共享显卡内存</p>
+                    <p>￥6888.00</p>
+                    <a href="">查看详情</a>
+                    <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img2.png" alt="">
+                </div>
+            </div>
+            <div id="bottom">
+                <div id="bottom_left">
+                    <div id="bottom_left_top">
+                        <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/computer_icon1.png" alt="">
+                        电脑 | 办公 1F
+                    </div>
+                    <div class="main">
+                        <p>电脑/整机</p>
+                        <ul>
+                            <li>笔记本</li>
+                            <li>游戏机</li>
+                            <li>台式机</li>
+                            <li>一体机</li>
+                            <li>服务器</li>
+                            <li>联想</li>
+                        </ul>
+                    </div>
+                    <div class="main">
+                        <p>电脑/配件</p>
+                        <ul>
+                            <li>CPU</li>
+                            <li>SSD硬盘</li>
+                            <li>显示器</li>
+                            <li>显卡</li>
+                            <li>组装电脑</li>
+                            <li>机箱</li>
+                        </ul>
+                    </div>
+                    <div class="main">
+                        <p>外设/游戏</p>
+                        <ul>
+                            <li>键盘</li>
+                            <li>鼠标</li>
+                            <li>U盘</li>
+                            <li>移动硬盘</li>
+                            <li>音响设备</li>
+                            <li>蓝牙耳机</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="bottom_right">
+                    <div>
+                        <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img3.png" alt="电脑图片">
+                        <p>戴尔(DELL)XPS13-9360-R1609 13.3英寸微边框笔记本电脑</p>
+                        <p>￥4600.00</p>
+                        <a href="">查看详情</a>
+                    </div>
+                    <div>
+                        <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img4.png" alt="电脑图片">
+                        <p>14.8mm超轻薄笔记本电脑 航海王版 13.3英寸微边框笔记本电脑</p>
+                        <p>￥5600.00</p>
+                        <a href="">查看详情</a>
+                    </div>
+                    <div>
+                        <img src="http://doc.vrd.net.cn/tstore_v1/images/itemCat/study_computer_img5.png" alt="电脑图片">
+                        <p>联想(Lenovo) YOGA900 多彩版 13.3英寸微边框笔记本电脑</p>
+                        <p>￥6600.00</p>
+                        <a href="">查看详情</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>

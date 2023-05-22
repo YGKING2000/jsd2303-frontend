@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>展示方式</title>
+        <style>
+            div {
+                /*div默认的宽为上级元素的宽,默认高度为内容高度*/
+                border: 1px solid red;
+                width: 100px;
+                height: 100px;
+            }
+
+            span {
+                border: 1px solid blue;
+                /*span默认为行内元素不能修改宽高*/
+                width: 100px;
+                height: 100px;
+                display: inline-block; /*必须改成其它显示方式才可以修改*/
+            }
+        </style>
+    </head>
+    <body>
+        <div>div1</div>
+        <div>div2</div>
+        <div>div3</div>
+        <span>span1</span><span>span2</span><span>span3</span>
+    </body>
+</html>

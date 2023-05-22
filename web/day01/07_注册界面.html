@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Title</title>
+    </head>
+    <body>
+        <form action="">
+            <table cellspacing="0" cellpadding="3" border="1">
+                <caption><h1>欢迎注册</h1></caption>
+                <tr>
+                    <td>用户名:</td>
+                    <td><label><input></label></td>
+                </tr>
+                <tr>
+                    <td>密码:</td>
+                    <td><label><input></label></td>
+                </tr>
+                <tr>
+                    <td>性别:</td>
+                    <td>
+                        <label><input id="male" name="gender" type="radio" value="男">男</label>
+                        <label><input id="female" name="gender" type="radio" value="女">女</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>爱好:</td>
+                    <td>
+                        <label><input id="smoke" name="hobby" type="checkbox" value="抽烟">抽烟</label>
+                        <label><input id="drink" name="hobby" type="checkbox" value="喝酒">喝酒</label>
+                        <label><input id="perm" name="hobby" type="checkbox" value="烫头">烫头</label>
+                    </td>
+                </tr>
+                <tr>
+                    <td>邮箱:</td>
+                    <td><label><input></label></td>
+                </tr>
+                <tr>
+                    <td>生日:</td>
+                    <td><label><input type="date"></label></td>
+                </tr>
+                <tr>
+                    <td>靓照:</td>
+                    <td><label><input type="file"></label></td>
+                </tr>
+                <tr>
+                    <td>所在地:</td>
+                    <td>
+                        <label>
+                            <select name="city">
+                                <option value="bj">北京</option>
+                                <option value="sh">上海</option>
+                                <option value="gz" selected="selected">广州</option>
+                            </select>
+                        </label>
+                    </td>
+                </tr>
+                <tr style="text-align: center">
+                    <td colspan="2">
+                        <input type="button" value="注册">
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </body>
+</html>
