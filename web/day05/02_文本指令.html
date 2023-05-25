@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>文本指令</title>
+    </head>
+    <body>
+        <div>
+            <p>{{info}}</p>
+            <p v-text="info"></p>
+            <p v-html="info"></p>
+        </div>
+    </body>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+    <script>
+        let v = new Vue({
+            el: document.querySelector("div"),
+            data() {
+                return {
+                    info: "文本指令<b>加粗</b>"
+                }
+            }
+        });
+    </script>
+</html>

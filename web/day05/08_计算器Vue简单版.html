@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>计算器简单版</title>
+        <script src="../js/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <label><input type="text" v-model="val1"></label>
+            <label><input type="text" v-model="val2"></label>
+            <br>
+            <br>
+            <button @click="cal('+')">加</button>
+            <button @click="cal('-')">减</button>
+            <button @click="cal('*')">乘</button>
+            <button @click="cal('/')">除</button>
+            <h1>结果: {{result}}</h1>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    val1: "",
+                    val2: "",
+                    result: ""
+                }
+            },
+            methods: {
+                cal(type) {
+                    if (isNaN(v.val1) || isNaN(v.val2)) {
+                        v.result = "输入错误!";
+                        return;
+                    }
+                    v.result = eval(v.val1 + type + v.val2);
+                }
+            }
+        });
+    </script>
+</html>

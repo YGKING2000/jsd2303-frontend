@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>循环遍历指令</title>
+        <script src="../js/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <table border="1" style="text-align:center;" cellspacing="0">
+                <tr>
+                    <th>编号</th>
+                    <th>商品名称</th>
+                    <th>商品价格</th>
+                    <th>商品库存</th>
+                </tr>
+                <tr v-for="(product, index) in products">
+                    <td>{{index + 1}}</td>
+                    <td>{{product.title}}</td>
+                    <td>{{product.price}}</td>
+                    <td>{{product.num}}</td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    products: [
+                        {title: "OPPO", price: 3333, num: 33},
+                        {title: "VIVO", price: 7777, num: 77},
+                        {title: "APPLE", price: 9999, num: 99}
+                    ]
+                }
+            }
+        });
+    </script>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>计算器</title>
+        <style>
+            button {
+                width: 50px;
+                height: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <label for="i1">第一个数:</label>
+        <input type="text" id="i1">
+        <label for="i2">第二个数:</label>
+        <input type="text" id="i2">
+        <br>
+        <button onclick="add()">+</button>
+        <button onclick="sub()">-</button>
+        <button onclick="multiply()">*</button>
+        <button onclick="divide()">/</button>
+        <br>
+        结果:<span></span>
+    </body>
+    <script>
+        let i1 = document.querySelector("#i1");
+        let i2 = document.querySelector("#i2");
+        let s = document.querySelector("span");
+        function add() {
+            if (isNaN(i1.value) || isNaN(i2.value)) {
+                s.innerHTML = "输入错误"
+                return;
+            }
+            s.innerHTML = 1 * i1.value + 1 * i2.value;
+        }
+
+        function sub() {
+            if (isNaN(i1.value) || isNaN(i2.value)) {
+                s.innerHTML = "输入错误"
+                return;
+            }
+            s.innerHTML = i1.value - i2.value;
+        }
+
+        function multiply() {
+            if (isNaN(i1.value) || isNaN(i2.value)) {
+                s.innerHTML = "输入错误"
+                return;
+            }
+            s.innerHTML = 1 * i1.value * i2.value;
+        }
+
+        function divide() {
+            if (isNaN(i1.value) || isNaN(i2.value)) {
+                s.innerHTML = "输入错误"
+                return;
+            }
+            s.innerHTML = 1 * i1.value / i2.value;
+        }
+    </script>
+</html>

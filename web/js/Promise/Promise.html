@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+    <!-- 引入Vue -->
+<!--    <script src="Promise.js"></script>-->
+</head>
+
+<body>
+
+</body>
+
+<script type="text/javascript">
+    let p = new Promise((resolve, reject) => {
+        setTimeout(() => {
+            resolve('OK');
+            reject('FAIL');
+            // throw '失败';
+        }, 1000);
+    });
+    p.then(value => {
+        console.log(value);
+    }).then(value => {
+        console.log(111);
+        return new Promise((resolve, reject) => {
+            throw '错误'
+        });
+    }).then(value => {
+        console.log(222);
+    }, reason => {
+        console.warn(reason);
+    }).then(value => {
+        console.log(333);
+    }).catch(reason => {
+        console.warn(reason);
+    });
+    // console.dir(p);
+
+    /*var b = 100;
+    const data = {
+        a: () => {
+            console.log(this);
+        },
+        c: this.b
+    };
+    data.a();
+    console.log(data.c)*/
+</script>
+
+</html>

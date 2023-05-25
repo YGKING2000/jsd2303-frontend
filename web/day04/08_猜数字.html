@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>猜数字</title>
+    </head>
+    <body>
+        <label for="inp"></label>
+        <input type="text" id="inp" placeholder="请输入1~100之间的整数">
+        <button onclick="guess()">猜一猜</button>
+        <br>
+        <span></span>
+    </body>
+    <script>
+        let target = parseInt(Math.random() * 100 + 1);
+        let inp = document.querySelector("#inp");
+        let span = document.querySelector("span");
+        let count = 0;
+        console.log(target)
+        function guess() {
+            count++;
+            if (inp.value * 1 > target) {
+                span.innerText = "猜大了！";
+            } else if (inp.value * 1 < target) {
+                span.innerText = "猜小了！";
+            } else {
+                span.innerText = "恭喜你，第" + count + "次猜对了!";
+            }
+        }
+    </script>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>HelloVue</title>
+        <script src="../js/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <div>{{info}}</div>
+            <button @click="changeInfo()">改变</button>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#root",
+            data: {
+                info: "Hello Vue!"
+            },
+            methods: {
+                changeInfo() {
+                    v.info = "红红火火恍恍惚惚!"
+                }
+            }
+        });
+    </script>
+</html>

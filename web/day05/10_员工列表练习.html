@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>员工列表练习</title>
+        <script src="../js/vue.min.js"></script>
+    </head>
+    <body>
+        <div id="root">
+            <label>姓名: <input type="text" v-model="employee.name"></label><br>
+            <label>工资: <input type="text" v-model="employee.salary"></label><br>
+            <label>职称: <input type="text" v-model="employee.title"></label><br>
+            <button @click="add()">添加</button>
+            <table style="text-align:center;" border="1" cellspacing="0">
+                <tr>
+                    <th>编号</th>
+                    <th>姓名</th>
+                    <th>工资</th>
+                    <th>职称</th>
+                    <th>操作</th>
+                </tr>
+                <tr v-for="(employee, index) in employees">
+                    <td>{{index + 1}}</td>
+                    <td>{{employee.name}}</td>
+                    <td>{{employee.salary}}</td>
+                    <td>{{employee.title}}</td>
+                    <td>
+                        <button @click="del(index)">删除</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    employees: [
+                        {name: "胡歌", salary: 99999, title: "技术总监"},
+                        {name: "刘亦菲", salary: 77777, title: "项目经理"},
+                        {name: "霍建华", salary: 33333, title: "产品经理"}
+                    ],
+                    employee: {
+                        name: "",
+                        salary: "",
+                        title: ""
+                    }
+                }
+            },
+            methods: {
+                add() {
+                    const {name, salary, title} = v.employee;
+                    v.employees.push({name, salary, title});
+                },
+                del(index) {
+                    v.employees.splice(index, 1);
+                }
+            }
+        });
+    </script>
+</html>

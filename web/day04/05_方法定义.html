@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>方法定义</title>
+    </head>
+    <body>
+        <script>
+            function f1() {
+                console.log("胡歌")
+            }
+
+            f1()
+
+            function f2(name, age) {
+                console.log(name + ": " + age)
+            }
+
+            f2("胡歌", 18)
+
+            function f3() {
+                return 333;
+            }
+
+            console.log(f3())
+
+            function f4(x, y) {
+                return x * y;
+            }
+
+            console.log(f4(3, 7))
+
+            let f5 = function (name, age) {
+                console.log(name + ": " + age)
+            }
+
+            f5("刘亦菲", 36);
+
+            let f6 = new Function("name", "age", "console.log(name + ': ' + age)");
+            f6("胡歌", 41)
+        </script>
+    </body>
+</html>
