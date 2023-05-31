@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>选择器</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>你选择的商品价值: {{value}}</h1>
+            <el-select v-model="value" placeholder="请选择">
+                <el-option v-for="item in array"
+                           :key="item.title"
+                           :label="item.title"
+                           :value="item.price">
+                </el-option>
+            </el-select>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    array: [
+                        {title: "麦克风", price: 100},
+                        {title: "鼠标", price: 30},
+                        {title: "键盘", price: 50},
+                        {title: "显示器", price: 800}
+                    ],
+                    options: [
+                        {value: '选项1', label: '黄金糕'},
+                        {value: '选项2', label: '双皮奶'},
+                        {value: '选项3', label: '蚵仔煎'},
+                        {value: '选项4', label: '龙须面'},
+                        {value: '选项5', label: '北京烤鸭'}
+                    ],
+                    value: ''
+                }
+            }
+        });
+    </script>
+</html>

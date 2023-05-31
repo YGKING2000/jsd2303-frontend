@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>员工列表练习</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            姓名: <input type="text" v-model="employee.name"/><br>
+            薪资: <input type="text" v-model="employee.salary"/><br>
+            岗位: <input type="text" v-model="employee.job"/><br>
+            <el-button type="primary" @click="add()">添加</el-button>
+            <br>
+            <el-table :data="employees" style="width: 100%">
+                <el-table-column type="index" label="编号" width="100"></el-table-column>
+                <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+                <el-table-column prop="salary" label="薪资" width="180"></el-table-column>
+                <el-table-column prop="job" label="岗位"></el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="danger"
+                                   @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    employees: [
+                        {name: "胡歌", salary: "99999", job: "项目经理"},
+                        {name: "刘亦菲", salary: "77777", job: "产品经理"},
+                        {name: "霍建华", salary: "33333", job: "后端组长"},
+                        {name: "唐嫣", salary: "22222", job: "前端组长"}
+                    ],
+                    employee: {
+                        name: "",
+                        salary: "",
+                        job: ""
+                    }
+                }
+            },
+            methods: {
+                add() {
+                    const {name, salary, job} = this.employee;
+                    this.employees.push({name, salary, job});
+                    this.$message({
+                        type: "success",
+                        message: "成功添加" + this.employee.name + "!"
+                    });
+                },
+                handleDelete(index, employee) {
+                    this.employees.splice(index, 1);
+                    this.$message({
+                        type: "success",
+                        message: "成功删除" + employee.name + "!"
+                    });
+                }
+            }
+        });
+    </script>
+</html>

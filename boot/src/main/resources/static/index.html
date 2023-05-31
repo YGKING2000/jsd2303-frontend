@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>首页</title>
+        <!--引入vue框架文件-->
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+        <!--引入axios框架文件-->
+        <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <a href="reg.html">注册</a>
+            <a href="login.html">登录</a>
+            <hr>
+            <a href="post.html">发微博</a>
+            <hr>
+            <h3 v-for="weibo in weiboList">
+                {{ weibo.nickname }}: {{ weibo.content }}
+                <a href="javascript: void(0)" @click="del(weibo.id)">删除</a>
+            </h3>
+        </div>
+    </body>
+    <script>
+        new Vue({
+            el: "#app",
+            data() {
+                return {
+                    weiboList: []
+                };
+            },
+            created() {
+                axios.get("/v1/weibo/").then(response => {
+                    this.weiboList = response.data.data;
+                });
+            },
+            methods: {
+                del(id) {
+                    axios.post(`/v1/weibo/${id}/delete`).then(response => {
+                        if (response.data.code === 200) {
+                            alert("删除成功!");
+                            location.href = "/";
+                        } else if (response.data.code === 1005) {
+                            alert(response.data.msg);
+                        }else {
+                            alert("你当前未登录!");
+                        }
+                    });
+                }
+            }
+        })
+    </script>
+</html>

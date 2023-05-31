@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>发微博</title>
+        <!--引入vue框架文件-->
+        <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+        <!--引入axios框架文件-->
+        <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <input type="text" v-model="weibo.content">
+            <input type="submit" value="发微博" @click="post()">
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    weibo: {content: ""}
+                }
+            },
+            methods: {
+                post() {
+                    axios.post("/v1/weibo/insert", this.weibo).then(response => {
+                        if (response.data.code === 200) {
+                            alert("微博发布成功!")
+                            location.href = "/";
+                        } else {
+                            alert("登录已超时，请重新登录!");
+                            location.href = "/login.html";
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</html>

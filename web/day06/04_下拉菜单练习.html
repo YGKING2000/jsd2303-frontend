@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>下拉菜单练习</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <h1>点击了: {{food}}</h1>
+            <el-dropdown @command="handleCommand">
+                <span class="el-dropdown-link">
+                  下拉菜单
+                  <i class="el-icon-arrow-down el-icon--right"></i>
+                </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="黄金糕">黄金糕</el-dropdown-item>
+                    <el-dropdown-item command="狮子头">狮子头</el-dropdown-item>
+                    <el-dropdown-item command="螺狮粉">螺蛳粉</el-dropdown-item>
+                    <el-dropdown-item command="双皮奶" disabled>双皮奶</el-dropdown-item>
+                    <el-dropdown-item command="蚵仔煎" divided>蚵仔煎</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    food: ""
+                }
+            },
+            methods: {
+                handleCommand(command) {
+                    this.food = command;
+                }
+            }
+        });
+    </script>
+    <style>
+        .el-dropdown-link {
+            cursor: pointer;
+            color: #409EFF;
+        }
+
+        .el-icon-arrow-down {
+            font-size: 12px;
+        }
+    </style>
+</html>

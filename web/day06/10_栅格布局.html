@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>栅格布局</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <el-row :gutter="20">
+                <el-col :span="12">
+                    <div class="c1">12</div>
+                </el-col>
+                <el-col :span="12">
+                    <div class="c1">12</div>
+                </el-col>
+            </el-row>
+            <div style="width: 1200px; margin: 0 auto;">
+                <el-row :gutter="10">
+                    <el-col :span="16">
+                        <div class="c1">16</div>
+                    </el-col>
+                    <el-col :span="8">
+                        <div class="c1">8</div>
+                    </el-col>
+                </el-row>
+            </div>
+            <div style="width: 1200px; margin: 0 auto;">
+                <el-row :gutter="10">
+                    <el-col :span="4">
+                        <div class="c1">4</div>
+                    </el-col>
+                    <el-col :span="12">
+                        <el-row :gutter="10"><div class="c1">12</div></el-row>
+                    </el-col>
+                    <el-col :span="4">
+                        <div class="c1">4</div>
+                    </el-col>
+                    <el-col :span="4">
+                        <div class="c1">4</div>
+                    </el-col>
+                </el-row>
+            </div>
+            <div style="width: 1200px; margin: 0 auto;">
+                <el-row :gutter="20">
+                    <el-col :span="4"><div class="c1">4</div></el-col>
+                    <el-col :span="8"><div class="c1">8</div></el-col>
+                    <el-col :span="12"><div class="c1">12</div></el-col>
+                </el-row>
+            </div>
+            <div style="width: 1200px; margin: 0 auto;">
+                <el-row :gutter="5">
+                    <el-col v-for="() in 8" :span="3"><div class="c1">3</div></el-col>
+                </el-row>
+            </div>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {}
+            }
+        });
+    </script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        .c1 {
+            border: skyblue solid 2px;
+            /*background-color: skyblue;*/
+            min-height: 48px;
+        }
+    </style>
+</html>

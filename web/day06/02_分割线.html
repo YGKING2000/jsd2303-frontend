@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>分割线</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <span>青春是一个短暂的美梦, 当你醒来时, 它早已消失无踪</span>
+            <el-divider content-position="left">胡歌</el-divider>
+            <el-divider content-position="right">刘亦菲</el-divider>
+            <span>少量的邪恶足以抵消全部高贵的品质, 害得人声名狼藉</span>
+            <hr>
+            <span>雨纷纷</span>
+            <el-divider direction="vertical"></el-divider>
+            <span>旧故里</span>
+            <el-divider direction="vertical"></el-divider>
+            <span>草木深</span>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {}
+            }
+        });
+    </script>
+</html>

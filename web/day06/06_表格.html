@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>表格</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <el-table :data="array" style="width: 100%">
+                <el-table-column type="index" label="编号" width="100"></el-table-column>
+                <el-table-column prop="name" label="姓名" width="180"></el-table-column>
+                <el-table-column prop="salary" label="薪资" width="180"></el-table-column>
+                <el-table-column prop="job" label="岗位"></el-table-column>
+                <el-table-column label="操作">
+                    <template slot-scope="scope">
+                        <el-button size="mini" type="danger"
+                                @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+                    </template>
+                </el-table-column>
+            </el-table>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    array: [
+                        {name: "胡歌", salary: 99999, job: "项目经理"},
+                        {name: "刘亦菲", salary: 77777, job: "产品经理"},
+                        {name: "刘诗诗", salary: 33333, job: "程序员"}
+                    ]
+                }
+            },
+            methods: {
+                handleDelete(index, employee) {
+                    this.array.splice(index, 1);
+                    this.$message({
+                        type: "success",
+                        message: "成功删除" + employee.name + "!"
+                    });
+                }
+            }
+        });
+    </script>
+</html>

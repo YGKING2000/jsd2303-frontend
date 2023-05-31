@@ -1,0 +1,747 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>美团</title>
+        <script src="js/vue.min.js"></script>
+        <script src="js/iconfont.js"></script>
+        <link rel="stylesheet" href="css/美团.css">
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div id="header">
+                <div class="container" id="header-bar">
+                    <div id="header-bar-position">
+                        <svg class="icon" aria-hidden="true">
+                            <use xlink:href="#icon-weizhi"></use>
+                        </svg>
+                        广州
+                        <span class="hover1">切换城市</span>
+                        <div style="display: inline-block">
+                            <span class="hover1">nwm418646370</span>
+                            <span class="hover1">退出</span>
+                        </div>
+                    </div>
+                    <div id="header-bar-nav">
+                        <ul>
+                            <li class="hover1">手机App</li>
+                            <li class="hover1">我的美团</li>
+                        </ul>
+                    </div>
+                </div>
+                <div id="header-content">
+                    <div class="container">
+                        <div id="header-content-title">
+                            <div id="header-logo">
+                                <img src="https://s3plus.meituan.net/static-prod01/com.sankuai.fe.www.web-files/7dbaa9a/img/logo.png"
+                                     alt="">
+                            </div>
+                            <div id="header-search">
+                                <input type="text" placeholder="搜索商家或地点" @click="" name="" id="">
+                                <button>
+                                    <svg class="icon" aria-hidden="true">
+                                        <use xlink:href="#icon-sousuoxiao"></use>
+                                    </svg>
+                                </button>
+                                <div id="searchHistory"></div>
+                            </div>
+                        </div>
+                        <div id="header-content-nav">
+                            <div id="header-nav-title">
+                                全部分类
+                            </div>
+                            <div id="header-nav-link">
+                                <ul>
+                                    <li>美团外卖</li>
+                                    <li>猫眼电影</li>
+                                    <li>美团酒店</li>
+                                    <li>民宿/公寓</li>
+                                    <li>商家入驻</li>
+                                    <li>美团公益</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="main" class="container">
+                <div id="left">
+                    <ul>
+                        <li v-for="(item, index) in leftArray"
+                            @mouseenter="changeIndex(index)"
+                            @mouseleave="isShow = false">
+                            <svg class="icon" aria-hidden="true">
+                                <use :xlink:href="item.content"></use>
+                            </svg>
+                            <span>{{ item.name }}</span>
+                        </li>
+                    </ul>
+                </div>
+                <div id="mask" v-show="isShow" @mouseenter="isShow = true" @mouseleave="isShow = false">
+                    <span style="font-size: 16px; color: #222222; line-height: 3">{{ maskTitle }}</span>
+                    <hr>
+                    <ul>
+                        <li v-for="item in maskData">{{ item }}</li>
+                    </ul>
+                </div>
+                <div id="right">
+                    <div id="right-top">
+                        <div id="right-slider">
+                            <el-carousel height="240px">
+                                <el-carousel-item v-for="url in sliderUrlList" :key="url">
+                                    <img :src="url" alt="" width="550px" height="240px">
+                                </el-carousel-item>
+                            </el-carousel>
+                        </div>
+                        <img src="http://p0.meituan.net/codeman/e473bb428f070321269b23370ff02ba956209.jpg" alt="">
+                        <div id="right-info">
+                            <svg style="font-size: 24px; position: absolute; top: 10px; right: 10px;" class="icon"
+                                 aria-hidden="true">
+                                <use xlink:href="#icon-shezhi"></use>
+                            </svg>
+                            <img src="https://img.meituan.net/avatar/b4633503c4bb28ace285ef289d2151f322164.jpg" alt="">
+                            <p>nwm418646370</p>
+                            <ul>
+                                <li v-for="item in infoList">
+                                    <svg style="font-size: 24px" class="icon" aria-hidden="true">
+                                        <use :xlink:href="item.code"></use>
+                                    </svg>
+                                    <p style="margin: 5px 0; color: #222222">{{ item.text }}</p>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div id="right-bottom">
+                        <img src="http://p1.meituan.net/codeman/8cce56c467a17e04f3094d1e455462a0132772.png" alt="">
+                        <img src="http://p1.meituan.net/codeman/16442c19da1f1c4544f794e29d99c92051716.jpg" alt="">
+                        <img src="http://p1.meituan.net/codeman/5b21cddb4bb1cbc3a9c3bce0f726c75940469.jpg" alt="">
+                        <div id="right-download">
+                            <img src="http://p0.meituan.net/pccommon/7d36da5a3f02c7d33c32743d489a040b2235.png" alt="">
+                            <p style="color: #222222; font-size: 16px">美团App手机版</p>
+                            <span style="display: inline-block; margin-right: 5px; color:#ec5330;">1元起</span>
+                            <span>吃喝玩乐</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="container" id="movie">
+                <div class="movie-tab">
+                    <span>猫眼电影</span>
+                    <ul>
+                        <li @mouseenter="changeMovieTab(1)">
+                            正在热映
+                            <svg v-if="showMovieTab === 1" class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-sanjiaoxing"></use>
+                            </svg>
+                        </li>
+                        <li @mouseenter="changeMovieTab(2)">
+                            即将上映
+                            <svg v-if="showMovieTab === 2" class="icon" style="color: #ffffff" aria-hidden="true">
+                                <use xlink:href="#icon-sanjiaoxing"></use>
+                            </svg>
+                        </li>
+                    </ul>
+                    <p>全部&nbsp;&gt;</p>
+                </div>
+                <div id="movie-content">
+                    <el-carousel v-if="showMovieTab === 1" height="300px" :autoplay="false" indicator-position="none">
+                        <el-carousel-item v-for="movies in movieList1" style="height: 300px;">
+                            <ul style="width: 1200px; height: 300px;">
+                                <li v-for="movie in movies">
+                                    <img :src="movie.url" alt="">
+                                    <img v-if="movie.isIMAX"
+                                         src="https://p0.meituan.net/pccommon/0973b643d319a05d92fa23b20f6965ef2320.png"
+                                         alt="">
+                                    <div class="movie-info">
+                                        <p>
+                                            <span>{{ movie.content }}</span>
+                                            <span>{{ movie.text }}</span>
+                                        </p>
+                                        <p>{{ movie.name }}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </el-carousel-item>
+                    </el-carousel>
+                    <el-carousel v-if="showMovieTab === 2" height="300px" :autoplay="false" indicator-position="none">
+                        <el-carousel-item v-for="movies in movieList2" style="height: 300px;">
+                            <ul style="width: 1200px; height: 300px;">
+                                <li v-for="movie in movies">
+                                    <img :src="movie.url" alt="">
+                                    <img v-if="movie.isIMAX"
+                                         src="https://p0.meituan.net/pccommon/0973b643d319a05d92fa23b20f6965ef2320.png"
+                                         alt="">
+                                    <div class="movie-info">
+                                        <p>
+                                            <span>{{ movie.content }}</span>
+                                            <span>{{ movie.text }}</span>
+                                        </p>
+                                        <p>{{ movie.name }}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </el-carousel-item>
+                    </el-carousel>
+                </div>
+            </div>
+            <div class="container" id="hotel">
+                <div class="movie-tab">
+                    <span>推荐民宿</span>
+                    <ul>
+                        <li v-for="(location, index) in locationList" @mouseenter="changeHotelTab(index)">
+                            {{ location }}
+                            <svg v-if="showHotelTab === index" class="icon" aria-hidden="true">
+                                <use xlink:href="#icon-sanjiaoxing"></use>
+                            </svg>
+                        </li>
+                    </ul>
+                    <p>全部&nbsp;&gt;</p>
+                </div>
+                <div id="hotel-content">
+                    <ul v-for="(itemList, index) in hotelDetailList" v-if="showHotelTab === index">
+                        <li v-for="item in itemList">
+                            <div id="hotel-img">
+                                <img :src="item.pic" alt="">
+                                <img :src="item.avatar" alt="">
+                            </div>
+                            <div id="hotel-detail">
+                                <p>{{ item.title }}</p>
+                                <p>{{ item.info }}</p>
+                                <p>￥<span>{{ item.price }}</span></p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container" id="nav">
+                <div id="nav-title">美团导航</div>
+                <div class="nav-content" v-for="itemList in navList">
+                    <div>{{ itemList.title }}</div>
+                    <ul>
+                        <li v-for="item in itemList.data">{{ item }}</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="container" id="footer">
+                <div id="footerLink">
+                    <dl v-for="item in footerLinkList">
+                        <dt>{{item.title}}</dt>
+                        <dd v-for="link in item.data">{{link}}</dd>
+                    </dl>
+                </div>
+                <div id="footer-bottom">
+                    <div id="footer-left">
+                        <span>©2023 美团版权所有</span>
+                        <span>京ICP证070791号</span>
+                        <span>京ICP备10211739号-1</span>
+                        <span>北京三快科技有限公司营业执照</span>
+                        <span>平台EDI许可证</span>
+                        <span>北京三快信息科技有限公司营业执照</span>
+                        <span>北京三快在线科技有限公司营业执照</span>
+                        <span>汉海信息技术（上海）有限公司营业执照</span>
+                        <span>广播电视节目制作经营许可证</span>
+                        <span>药品医疗器械网络信息服务备案</span>
+                        <span>医疗器械网络交易服务第三方平台备案凭证</span>
+                        <span>审图号与甲级测绘资格证书号</span>
+                        <span>网络食品交易第三方平台提供者备案号</span>
+                        <span>增值电信业务经营许可证</span>
+                    </div>
+                    <div id="footer-right">
+                        <p>京公网安备 11000002002052号</p>
+                        <div></div>
+                        <div></div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div style="width: 150px;height: 40px;line-height: 40px;margin: 0 auto">天河北中心——黄仁东</div>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    showMovieTab: 1,
+                    showHotelTab: 1,
+                    isShow: false,
+                    leftArray: [
+                        {content: "#icon-meishi", name: "美食", data: ["代金券", "甜点饮品", "火锅", "自助餐", "日韩料理",
+                                "西餐", "聚餐宴请", "烧烤烤肉", "东北菜", "川湘菜", "江浙菜", "香锅烤鱼", "粤港菜", "中式烧烤/烤串",
+                                "西北菜", "咖啡酒吧茶馆", "云贵菜", "东南亚菜", "海鲜", "素食", "台湾/客家菜", "创意菜",
+                                "汤/粥/炖菜", "蒙餐", "新疆菜", "京菜鲁菜", "其他美食"]},
+                        {content: "#icon-waimai", name: "外卖", data: ["外卖"]},
+                        {content: "#icon-jiudian", name: "酒店", data: ["经济型", "舒适/三星", "高档/四星", "豪华/五星"]},
+                        {content: "#icon-minsu_", name: "民宿", data: ["上海", "成都", "北京", "重庆", "南京", "杭州", "广州",
+                                "西安", "武汉", "厦门", "长沙", "青岛", "深圳", "天津", "苏州"]},
+                        {content: "#icon-dianying", name: "猫眼电影", data: ["速度与激情10", "人生路不熟", "小美人鱼", "温柔壳",
+                                "银河护卫队3", "灌篮高手", "刀剑神域进击篇：暮色黄昏", "长空之王", "新猪猪侠大电影·超级赛车", "超级马力欧兄弟大电影"]},
+                        {
+                            content: "#icon-huochepiao",
+                            name: "机票 / 火车票",
+                            data: ["代金券", "火锅", "代金券", "火锅", "自助餐", "自助餐", "代金券", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]
+                        },
+                        {
+                            content: "#icon-maikefeng",
+                            name: "休闲娱乐 / KTV",
+                            data: ["代金券", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]
+                        },
+                        {content: "#icon-shenghuofuwu", name: "生活服务", data: ["代金券", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]},
+                        {
+                            content: "#icon-female-actived",
+                            name: "丽人 / 美发 / 医学美容",
+                            data: ["代金券", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]
+                        },
+                        {
+                            content: "#icon-zuanshibaoshi",
+                            name: "结婚 / 婚纱摄影 / 婚宴",
+                            data: ["代金券", "火锅", "代金券", "火锅", "自助餐", "自助餐", "西餐", "日韩料理", "东北菜"]
+                        },
+                        {
+                            content: "#icon-qinziyou",
+                            name: "亲子 / 儿童乐园 / 幼教",
+                            data: ["代金券", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]
+                        },
+                        {content: "#icon-yaling", name: "运动健身 / 健身中心", data: ["代金券", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]},
+                        {
+                            content: "#icon-jiazhuang",
+                            name: "家装 / 建材 / 家居",
+                            data: ["代金券", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]
+                        },
+                        {
+                            content: "#icon-fenshijuan",
+                            name: "学习培训 / 音乐培训",
+                            data: ["代金券", "火锅", "自助餐", "西餐", "日韩料理", "代金券", "火锅", "自助餐", "代金券", "火锅", "自助餐", "代金券", "火锅", "自助餐", "东北菜"]
+                        },
+                        {
+                            content: "#icon-yiliaofuwu",
+                            name: "医疗健康 / 宠物 / 爱车",
+                            data: ["代金券", "火锅", "自助餐", "西餐","代金券", "火锅", "自助餐",  "日韩料理", "东北菜"]
+                        },
+                        {content: "#icon-jiubei", name: "酒吧 / 密室逃脱", data: ["代金券", "代金券", "火锅", "自助餐", "代金券", "火锅", "自助餐", "火锅", "自助餐", "西餐", "日韩料理", "东北菜"]}
+                    ],
+                    maskTitle: "",
+                    maskData: [],
+                    sliderUrlList: [
+                        "http://p0.meituan.net/codeman/daa73310c9e57454dc97f0146640fd9f69772.jpg",
+                        "https://p1.meituan.net/travelcube/01d2ab1efac6e2b7adcfcdf57b8cb5481085686.png",
+                        "http://p0.meituan.net/codeman/33ff80dc00f832d697f3e20fc030799560495.jpg",
+                        "http://p0.meituan.net/codeman/a97baf515235f4c5a2b1323a741e577185048.jpg"
+                    ],
+                    infoList: [
+                        {code: "#icon-dingdantongji", text: "我的订单"},
+                        {code: "#icon-shoucang", text: "我的收藏"},
+                        {code: "#icon-diyongquan", text: "抵用券"},
+                        {code: "#icon-zhifu-yue", text: "余额"},
+                        {code: "#icon-biaoqiankuozhan_gengduo-353", text: "更多"},
+                    ],
+                    movieList1: [
+                        [
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386877e151bb86050152b2c2508b05f0e0.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "速度与激情10", text: "观众评分", content: "8.9"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb73868706d339339ec9fdd4215fd00c845e3.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "人生路不熟", text: "观众评分", content: "9.4"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb738687e7addd7df5030c82a13f15b023a9c.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "刀剑神域进击篇：暮色黄昏", text: "人想看", content: "145461"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386877a3ddd50c8537c28e942a908d8890.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: false, name: "温柔壳", text: "人想看", content: "44781"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb73860202f5bf8ea32ff789179d3ff804532.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "小美人鱼", text: "人想看", content: "56200"
+                            }
+                        ],
+                        [
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb73868787a807cbae71f74de48b058b8a09d.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "速度与激情10", text: "观众评分", content: "8.9"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386bee7ac7e338fd7c316918ec78e573ba.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: false, name: "人生路不熟", text: "观众评分", content: "9.4"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386028eaddd5bf1e19ba06ac2f15cd8c3c.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: false, name: "刀剑神域进击篇：暮色黄昏", text: "人想看", content: "145461"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386beb53ddd338f07ac311aa9711648537.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: false, name: "小美人鱼", text: "人想看", content: "56200"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386877a3ddd50c8537c28e942a908d8890.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "温柔壳", text: "人想看", content: "44781"
+                            }
+                        ]
+                    ],
+                    movieList2: [
+                        [
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb73868753733887a9e7aab892c1b9729fbf4.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "一路幸福", text: "人想看", content: "332"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386877a38073ba33ba3fe28b7e60d973c6.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: false, name: "天空之城", text: "人想看", content: "348004"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb738687030dddc9fd5bf1f4cb94e35a5f508.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "哆啦A梦：大雄与天空的理想乡", text: "人想看", content: "64429"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386870300fa7a35e5bc615562b8e6bafcd.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "巧虎奇幻舞", text: "人想看", content: "6154"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb73868792351bbe12e7aaae64ea9fb5a3b31.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "神兜兜和奶爸", text: "人想看", content: "1197"
+                            }
+                        ],
+                        [
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386877e151bb86050152b2c2508b05f0e0.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "速度与激情10", text: "观众评分", content: "8.9"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb73868706d339339ec9fdd4215fd00c845e3.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "人生路不熟", text: "观众评分", content: "9.4"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb738687e7addd7df5030c82a13f15b023a9c.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: false, name: "刀剑神域进击篇：暮色黄昏", text: "人想看", content: "145461"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb7386877a3ddd50c8537c28e942a908d8890.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: false, name: "温柔壳", text: "人想看", content: "44781"
+                            },
+                            {
+                                url: "https://p0.pipi.cn/mmdb/fb73860202f5bf8ea32ff789179d3ff804532.jpg?imageMogr2/thumbnail/2500x2500%3E",
+                                isIMAX: true, name: "小美人鱼", text: "人想看", content: "56200"
+                            }
+                        ]
+                    ],
+                    locationList: ["广州", "深圳", "珠海", "佛山", "东莞", "清远", "潮汕"],
+                    hotelDetailList: [
+                        [
+                            {
+                                pic: "\thttps://img.meituan.net/phoenix/650de8a9e0b3072fdb47ace0fa20284a884629.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/fe3f7868b78dfafa54ae2c9880811a4574562.jpg@200w_200h_1e_1c",
+                                title: "标准大床房 可月租  地址：（麦兴路公交站旁）风扇",
+                                info: "整套1居室·可住2人 | 麦地片区", price: "61"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/922c7768065dd99e7bd68c5e1053070f381494.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/4ccf5fb830a8fbddc86c0dbb9cd3cc0721591.jpg@200w_200h_1e_1c",
+                                title: "临近惠州经济职业技术学院，惠高中学，市场，商场，交通方便，大量免费停车场",
+                                info: "整套1居室·可住2人 | 马安", price: "108"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/32fab8ebcd5199c40a0ba47c1ea2ed8d504727.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/3daf3e4f21d5ab57a4cfa3aac33144ac521218.jpg@200w_200h_1e_1c",
+                                title: "龙光城沃尔玛对门的精装套一",
+                                info: "整套1居室·可住3人 |", price: "148"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/259ee45942a7b947bef28694ed081c731450347.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/d9b51bf418cd2c6c436554be717db90a65073.jpg@200w_200h_1e_1c",
+                                title: "近惠州站/火车站 标准经济房",
+                                info: "整套1居室·可住1人 | 惠州站/小金口", price: "45"
+                            },
+                            {
+                                pic: "https://p1.meituan.net/phxpdg/4175ecbe34cc502619a43eb57b57de081355838.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/83e3ab49d4f354547b5cc04523f53c3f18649.jpg@200w_200h_1e_1c",
+                                title: "舒适特价房（风扇房）",
+                                info: "整套1居室·可住2人 | 陈江", price: "38"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/d9508a57a709ae4e0c535332bc4f99dd1853034.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/6f88668ea09a0e7e47b983e1cab9a4ab23338.jpg@200w_200h_1e_1c",
+                                title: "港惠《香遇》高颜值民宿/高清投影【芒果TV免费观影】",
+                                info: "整套1居室·可住2人 | 河南岸片区", price: "172"
+                            }
+                        ],
+                        [
+                            {
+                                pic: "https://img.meituan.net/phoenix/32fab8ebcd5199c40a0ba47c1ea2ed8d504727.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/3daf3e4f21d5ab57a4cfa3aac33144ac521218.jpg@200w_200h_1e_1c",
+                                title: "龙光城沃尔玛对门的精装套一",
+                                info: "整套1居室·可住3人 |", price: "148"
+                            },
+                            {
+                                pic: "https://p1.meituan.net/phxpdg/4175ecbe34cc502619a43eb57b57de081355838.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/83e3ab49d4f354547b5cc04523f53c3f18649.jpg@200w_200h_1e_1c",
+                                title: "舒适特价房（风扇房）",
+                                info: "整套1居室·可住2人 | 陈江", price: "38"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/259ee45942a7b947bef28694ed081c731450347.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/d9b51bf418cd2c6c436554be717db90a65073.jpg@200w_200h_1e_1c",
+                                title: "近惠州站/火车站 标准经济房",
+                                info: "整套1居室·可住1人 | 惠州站/小金口", price: "45"
+                            },
+                            {
+                                pic: "https://p0.meituan.net/horus/d633cb0431a0b3a74f1f6ed7d08ecac02181336.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/fe3f7868b78dfafa54ae2c9880811a4574562.jpg@200w_200h_1e_1c",
+                                title: "标准大床房 可月租  地址：（麦兴路公交站旁）风扇",
+                                info: "整套1居室·可住2人 | 麦地片区", price: "61"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/d9508a57a709ae4e0c535332bc4f99dd1853034.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/6f88668ea09a0e7e47b983e1cab9a4ab23338.jpg@200w_200h_1e_1c",
+                                title: "港惠《香遇》高颜值民宿/高清投影【芒果TV免费观影】",
+                                info: "整套1居室·可住2人 | 河南岸片区", price: "172"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/96be1a1030f663de432048852cc86fac6271299.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/05375b77b4f607790eec9fcdaa7aa54132789.jpg@200w_200h_1e_1c",
+                                title: "临近惠州经济职业技术学院，惠高中学，市场，商场，交通方便，大量免费停车场",
+                                info: "整套1居室·可住2人 | 马安", price: "108"
+                            }
+                        ],
+                        [
+                            {
+                                pic: "https://img.meituan.net/phoenix/36b3685896c69d1e0760407c6ccbb5ed2526317.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/e41aa84d3c3770a204b5faa0ce5ea05a196840.jpg@200w_200h_1e_1c",
+                                title: "近惠州站/火车站 标准经济房",
+                                info: "整套1居室·可住1人 | 惠州站/小金口", price: "45"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/c448ab985728e2b2cab3b1f2342412681891515.jpg@740w_416h_1e_1c",
+                                avatar: "\thttps://img.meituan.net/avatar/17346a57d3dbc70d2f22b2c9e5e691ab337459.jpg@200w_200h_1e_1c",
+                                title: "舒适特价房（风扇房）",
+                                info: "整套1居室·可住2人 | 陈江", price: "38"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/d9508a57a709ae4e0c535332bc4f99dd1853034.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/6f88668ea09a0e7e47b983e1cab9a4ab23338.jpg@200w_200h_1e_1c",
+                                title: "港惠《香遇》高颜值民宿/高清投影【芒果TV免费观影】",
+                                info: "整套1居室·可住2人 | 河南岸片区", price: "172"
+                            },
+                            {
+                                pic: "https://p0.meituan.net/horus/d633cb0431a0b3a74f1f6ed7d08ecac02181336.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/fe3f7868b78dfafa54ae2c9880811a4574562.jpg@200w_200h_1e_1c",
+                                title: "标准大床房 可月租  地址：（麦兴路公交站旁）风扇",
+                                info: "整套1居室·可住2人 | 麦地片区", price: "61"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/922c7768065dd99e7bd68c5e1053070f381494.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/4ccf5fb830a8fbddc86c0dbb9cd3cc0721591.jpg@200w_200h_1e_1c",
+                                title: "临近惠州经济职业技术学院，惠高中学，市场，商场，交通方便，大量免费停车场",
+                                info: "整套1居室·可住2人 | 马安", price: "108"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/32fab8ebcd5199c40a0ba47c1ea2ed8d504727.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/3daf3e4f21d5ab57a4cfa3aac33144ac521218.jpg@200w_200h_1e_1c",
+                                title: "龙光城沃尔玛对门的精装套一",
+                                info: "整套1居室·可住3人 |", price: "148"
+                            }
+                        ],
+                        [
+                            {
+                                pic: "https://img.meituan.net/phoenix/922c7768065dd99e7bd68c5e1053070f381494.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/4ccf5fb830a8fbddc86c0dbb9cd3cc0721591.jpg@200w_200h_1e_1c",
+                                title: "临近惠州经济职业技术学院，惠高中学，市场，商场，交通方便，大量免费停车场",
+                                info: "整套1居室·可住2人 | 马安", price: "108"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/32fab8ebcd5199c40a0ba47c1ea2ed8d504727.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/3daf3e4f21d5ab57a4cfa3aac33144ac521218.jpg@200w_200h_1e_1c",
+                                title: "龙光城沃尔玛对门的精装套一",
+                                info: "整套1居室·可住3人 |", price: "148"
+                            },
+                            {
+                                pic: "https://p1.meituan.net/phxpdg/4175ecbe34cc502619a43eb57b57de081355838.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/83e3ab49d4f354547b5cc04523f53c3f18649.jpg@200w_200h_1e_1c",
+                                title: "舒适特价房（风扇房）",
+                                info: "整套1居室·可住2人 | 陈江", price: "38"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/d9508a57a709ae4e0c535332bc4f99dd1853034.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/6f88668ea09a0e7e47b983e1cab9a4ab23338.jpg@200w_200h_1e_1c",
+                                title: "港惠《香遇》高颜值民宿/高清投影【芒果TV免费观影】",
+                                info: "整套1居室·可住2人 | 河南岸片区", price: "172"
+                            },
+                            {
+                                pic: "https://p0.meituan.net/horus/d633cb0431a0b3a74f1f6ed7d08ecac02181336.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/fe3f7868b78dfafa54ae2c9880811a4574562.jpg@200w_200h_1e_1c",
+                                title: "标准大床房 可月租  地址：（麦兴路公交站旁）风扇",
+                                info: "整套1居室·可住2人 | 麦地片区", price: "61"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/259ee45942a7b947bef28694ed081c731450347.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/d9b51bf418cd2c6c436554be717db90a65073.jpg@200w_200h_1e_1c",
+                                title: "近惠州站/火车站 标准经济房",
+                                info: "整套1居室·可住1人 | 惠州站/小金口", price: "45"
+                            }
+                        ],
+                        [
+                            {
+                                pic: "https://img.meituan.net/phoenix/159f1d9946c711bef2af8d014b61de0e3193558.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/fe53381d1abc3c8135294dddd46ff45533865.jpg@200w_200h_1e_1c",
+                                title: "标准大床房 可月租  地址：（麦兴路公交站旁）风扇",
+                                info: "整套1居室·可住2人 | 麦地片区", price: "61"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/259ee45942a7b947bef28694ed081c731450347.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/d9b51bf418cd2c6c436554be717db90a65073.jpg@200w_200h_1e_1c",
+                                title: "近惠州站/火车站 标准经济房",
+                                info: "整套1居室·可住1人 | 惠州站/小金口", price: "45"
+                            },
+                            {
+                                pic: "https://p1.meituan.net/phxpdg/4175ecbe34cc502619a43eb57b57de081355838.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/83e3ab49d4f354547b5cc04523f53c3f18649.jpg@200w_200h_1e_1c",
+                                title: "舒适特价房（风扇房）",
+                                info: "整套1居室·可住2人 | 陈江", price: "38"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/922c7768065dd99e7bd68c5e1053070f381494.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/4ccf5fb830a8fbddc86c0dbb9cd3cc0721591.jpg@200w_200h_1e_1c",
+                                title: "临近惠州经济职业技术学院，惠高中学，市场，商场，交通方便，大量免费停车场",
+                                info: "整套1居室·可住2人 | 马安", price: "108"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/a7c6c144b0890cc25199d2d932afe7e8465866.jpg@740w_416h_1e_1c",
+                                avatar: "https://p0.meituan.net/mmc/35ad1f9253761ea6ff822b5e659f234f3758.png",
+                                title: "龙光城沃尔玛对门的精装套一",
+                                info: "整套1居室·可住3人 |", price: "148"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/d9508a57a709ae4e0c535332bc4f99dd1853034.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/6f88668ea09a0e7e47b983e1cab9a4ab23338.jpg@200w_200h_1e_1c",
+                                title: "港惠《香遇》高颜值民宿/高清投影【芒果TV免费观影】",
+                                info: "整套1居室·可住2人 | 河南岸片区", price: "172"
+                            }
+                        ],
+                        [
+                            {
+                                pic: "https://img.meituan.net/phoenix/d71fd3c5efc33b248b6d91c902833d9d532351.jpg@740w_416h_1e_1c",
+                                avatar: "https://p1.meituan.net/phoenix/c0bf4f78a79375df4c700c1122096b7a428706.jpg@200w_200h_1e_1c",
+                                title: "近惠州站/火车站 标准经济房",
+                                info: "整套1居室·可住1人 | 惠州站/小金口", price: "45"
+                            },
+                            {
+                                pic: "https://p1.meituan.net/phxpdg/4175ecbe34cc502619a43eb57b57de081355838.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/83e3ab49d4f354547b5cc04523f53c3f18649.jpg@200w_200h_1e_1c",
+                                title: "舒适特价房（风扇房）",
+                                info: "整套1居室·可住2人 | 陈江", price: "38"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/d9508a57a709ae4e0c535332bc4f99dd1853034.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/6f88668ea09a0e7e47b983e1cab9a4ab23338.jpg@200w_200h_1e_1c",
+                                title: "港惠《香遇》高颜值民宿/高清投影【芒果TV免费观影】",
+                                info: "整套1居室·可住2人 | 河南岸片区", price: "172"
+                            },
+                            {
+                                pic: "https://p0.meituan.net/horus/d633cb0431a0b3a74f1f6ed7d08ecac02181336.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/fe3f7868b78dfafa54ae2c9880811a4574562.jpg@200w_200h_1e_1c",
+                                title: "标准大床房 可月租  地址：（麦兴路公交站旁）风扇",
+                                info: "整套1居室·可住2人 | 麦地片区", price: "61"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/922c7768065dd99e7bd68c5e1053070f381494.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/4ccf5fb830a8fbddc86c0dbb9cd3cc0721591.jpg@200w_200h_1e_1c",
+                                title: "临近惠州经济职业技术学院，惠高中学，市场，商场，交通方便，大量免费停车场",
+                                info: "整套1居室·可住2人 | 马安", price: "108"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/32fab8ebcd5199c40a0ba47c1ea2ed8d504727.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/3daf3e4f21d5ab57a4cfa3aac33144ac521218.jpg@200w_200h_1e_1c",
+                                title: "龙光城沃尔玛对门的精装套一",
+                                info: "整套1居室·可住3人 |", price: "148"
+                            }
+                        ],
+                        [
+                            {
+                                pic: "https://p0.meituan.net/horus/d633cb0431a0b3a74f1f6ed7d08ecac02181336.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/fe3f7868b78dfafa54ae2c9880811a4574562.jpg@200w_200h_1e_1c",
+                                title: "标准大床房 可月租  地址：（麦兴路公交站旁）风扇",
+                                info: "整套1居室·可住2人 | 麦地片区", price: "61"
+                            },
+                            {
+                                pic: "https://p1.meituan.net/phxpdg/4175ecbe34cc502619a43eb57b57de081355838.png@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/83e3ab49d4f354547b5cc04523f53c3f18649.jpg@200w_200h_1e_1c",
+                                title: "舒适特价房（风扇房）",
+                                info: "整套1居室·可住2人 | 陈江", price: "38"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/922c7768065dd99e7bd68c5e1053070f381494.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/4ccf5fb830a8fbddc86c0dbb9cd3cc0721591.jpg@200w_200h_1e_1c",
+                                title: "临近惠州经济职业技术学院，惠高中学，市场，商场，交通方便，大量免费停车场",
+                                info: "整套1居室·可住2人 | 马安", price: "108"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/d9508a57a709ae4e0c535332bc4f99dd1853034.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/6f88668ea09a0e7e47b983e1cab9a4ab23338.jpg@200w_200h_1e_1c",
+                                title: "港惠《香遇》高颜值民宿/高清投影【芒果TV免费观影】",
+                                info: "整套1居室·可住2人 | 河南岸片区", price: "172"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/259ee45942a7b947bef28694ed081c731450347.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/d9b51bf418cd2c6c436554be717db90a65073.jpg@200w_200h_1e_1c",
+                                title: "近惠州站/火车站 标准经济房",
+                                info: "整套1居室·可住1人 | 惠州站/小金口", price: "45"
+                            },
+                            {
+                                pic: "https://img.meituan.net/phoenix/32fab8ebcd5199c40a0ba47c1ea2ed8d504727.jpg@740w_416h_1e_1c",
+                                avatar: "https://img.meituan.net/avatar/3daf3e4f21d5ab57a4cfa3aac33144ac521218.jpg@200w_200h_1e_1c",
+                                title: "龙光城沃尔玛对门的精装套一",
+                                info: "整套1居室·可住3人 |", price: "148"
+                            }
+                        ]
+                    ],
+                    navList: [
+                        {
+                            title: "热门城市",
+                            data: ["南宁", "无锡", "长沙", "济南", "昆明", "北京", "苏州", "温州", "郑州", "南京", "佛山", "天津",
+                                "广州", "大连", "福州", "石家庄", "常州", "武汉", "东莞", "沈阳"]
+                        },
+                        {
+                            title: "热门分类",
+                            data: ["酒店", "美食", "休闲娱乐", "运动健身", "生活服务", "上门服务", "购物", "时尚购", "本地购物",
+                                "结婚", "摄影写真", "宴会", "丽人", "母婴亲子", "学习培训", "家装", "汽车服务", "医疗", "宠物"]
+                        },
+                        {
+                            title: "周边热门",
+                            data: ["南沙酒店", "顺德美食", "南沙休闲娱乐", "南沙运动健身", "佛山生活服务", "佛山上门服务", "佛山购物",
+                                "南沙时尚购", "顺德本地购物", "佛山结婚", "佛山摄影写真", "顺德宴会", "佛山丽人", "南沙母婴亲子",
+                                "佛山学习培训", "南沙家装", "顺德汽车服务", "佛山医疗", "佛山宠物"]
+                        }
+                    ],
+                    footerLinkList: [
+                        {title: "关于美团", data: ["认识美团", "发展历史", "社会责任"]},
+                        {title: "企业文化", data: ["企业理念", "人才发展", "工作在美团"]},
+                        {title: "帮助中心", data: ["隐私政策", "用户协议", "权益保障", "规则中心"]},
+                        {title: "加入美团", data: ["招聘官网", "我想合作"]},
+                        {title: "关注美团", data: ["美团微博", "美团微信公众号", "热线电话: 10107888"]}
+                    ]
+                }
+            },
+            methods: {
+                changeIndex(index) {
+                    this.isShow = true;
+                    this.maskTitle = this.leftArray[index].name;
+                    this.maskData = this.leftArray[index].data;
+                },
+                changeMovieTab(index) {
+                    this.showMovieTab = index;
+                },
+                changeHotelTab(index) {
+                    this.showHotelTab = index;
+                }
+            }
+        });
+    </script>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Title</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+        <style>
+            p {
+                margin: 0;
+                padding: 0;
+                font-size: 12px;
+                line-height: 12px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="root">
+            <el-dropdown>
+              <span class="el-dropdown-link">
+                下拉菜单<i class="el-icon-arrow-down el-icon--right"></i>
+              </span>
+                <el-dropdown-menu slot="dropdown">
+                    <el-dropdown-item command="a">
+                        佛跳墙
+                        <p>1</p>
+                        <p>2</p>
+                        <p>3</p>
+                    </el-dropdown-item>
+                    <el-dropdown-item command="b">狮子头</el-dropdown-item>
+                    <el-dropdown-item command="c">螺蛳粉</el-dropdown-item>
+                    <el-dropdown-item command="d" disabled>双皮奶</el-dropdown-item>
+                    <el-dropdown-item command="e" divided>蚵仔煎</el-dropdown-item>
+                </el-dropdown-menu>
+            </el-dropdown>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#root",
+            data() {
+                return {
+                    visible: false
+                }
+            }
+        });
+    </script>
+</html>

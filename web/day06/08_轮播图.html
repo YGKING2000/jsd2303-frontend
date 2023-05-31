@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>轮播图</title>
+        <script src="../js/vue.min.js"></script>
+        <!-- 引入样式 -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!-- 引入组件库 -->
+        <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    </head>
+    <body>
+        <div id="app">
+            <div class="block">
+                <span class="demonstration">默认 Hover 指示器触发</span>
+                <el-carousel height="150px">
+                    <el-carousel-item v-for="item in 4" :key="item">
+                        <h3 class="small">{{ item }}</h3>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div class="block">
+                <span class="demonstration">Click 指示器触发</span>
+                <el-carousel trigger="click" height="150px">
+                    <el-carousel-item v-for="item in 4" :key="item">
+                        <h3 class="small">{{ item }}</h3>
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div class="block">
+                <span class="demonstration">Click 指示器触发</span>
+                <el-carousel trigger="click" height="236px">
+                    <el-carousel-item>
+                        <img src="images/1.jpg" alt="">
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <img src="images/2.png" alt="">
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <img src="images/3.jpg" alt="">
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <img src="images/4.png" alt="">
+                    </el-carousel-item>
+                    <el-carousel-item>
+                        <img src="images/5.jpg" alt="">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+            <div class="block">
+                <span class="demonstration">Click 指示器触发</span>
+                <el-carousel trigger="click" height="236px">
+                    <el-carousel-item v-for="url in urls">
+                        <img :src="url" alt="">
+                    </el-carousel-item>
+                </el-carousel>
+            </div>
+        </div>
+    </body>
+    <script>
+        let v = new Vue({
+            el: "#app",
+            data() {
+                return {
+                    urls: ["images/1.jpg", "images/2.png", "images/3.jpg", "images/4.png", "images/5.jpg"]
+                }
+            }
+        });
+    </script>
+    <style>
+        .el-carousel__item h3 {
+            color: #475669;
+            font-size: 14px;
+            opacity: 0.75;
+            line-height: 150px;
+            margin: 0;
+        }
+
+        .el-carousel__item img {
+            width: 100%;
+        }
+
+        .block {
+            width: 423px;
+        }
+
+        .el-carousel__item {
+            background-color: skyblue;
+        }
+
+        /*.el-carousel__item:nth-child(2n) {
+            background-color: #99a9bf;
+        }
+
+        .el-carousel__item:nth-child(2n+1) {
+            background-color: #d3dce6;
+        }*/
+    </style>
+</html>
