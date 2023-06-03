@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.baking.mapper.CategoryMapper">
+    <select id="selectByType" resultType="com.example.baking.pojo.vo.CategoryVO">
+        SELECT id, name
+        FROM t_category
+        WHERE type = #{type}
+          AND level = 2
+    </select>
+</mapper>

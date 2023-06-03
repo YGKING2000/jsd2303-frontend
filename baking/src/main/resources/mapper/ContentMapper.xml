@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.baking.mapper.ContentMapper">
+    <insert id="insert">
+        INSERT INTO t_content (id, title, img_url, video_url, content, type, view_count, comment_count, create_by,
+                               create_time, update_by, update_time, brief, category_id)
+        VALUES (NULL, #{title}, #{imgUrl}, #{videoUrl}, #{content}, #{type}, 0, 0, #{createBy}, #{createTime},
+                NULL, NULL, #{brief}, #{categoryId})
+    </insert>
+
+    <select id="selectByTypeCreateBy" resultType="com.example.baking.pojo.vo.ContentVO">
+        SELECT c.id,
+               c.title,
+               c.img_url,
+               c.brief,
+               c.type,
+               tc.name AS `categoryName`,
+               c.view_count,
+               c.comment_count,
+               c.create_time
+        FROM t_content AS `c`
+                 JOIN t_category AS `tc` ON c.category_id = tc.id
+        WHERE c.type = #{type}
+          AND c.create_by = #{createBy}
+    </select>
+    
+    <delete id="deleteById">
+        DELETE FROM t_content
+        WHERE id = #{id}
+    </delete>
+</mapper>

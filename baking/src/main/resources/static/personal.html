@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- import CSS -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <style>
+            .center {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            #footer_center p {
+                margin: 0;
+            }
+
+            #footer_center h3 {
+                color: white;
+            }
+
+            body {
+                background-color: rgb(241, 242, 243);
+            }
+
+            .el-header {
+                background-color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <el-container>
+                <my-header></my-header>
+                <el-main class="center">
+                    <el-row gutter="20">
+                        <el-col span="4">
+                            <el-card style="height: 500px">
+                                <p style="color: orange">个人信息</p>
+                                <p @click="location.href='articleManagement.html'">稿件管理</p>
+                            </el-card>
+                        </el-col>
+                        <el-col span="20">
+                            <el-card style="height: 500px">
+                                <el-form label-width="100px">
+                                    <el-form-item label="头像">
+                                        <img :src="user.imgUrl"
+                                             style="width: 145px;height: 145px;border-radius: 10px;float: left">
+                                        <!--**********上传组件开始***********-->
+                                        <!--action设置请求地址  name设置上传文件的参数名称  limit设置上传文件的数量-->
+                                        <el-upload style="float: left"
+                                                   action="/v1/upload"
+                                                   list-type="picture-card"
+                                                   name="file"
+                                                   limit="1"
+                                                   :on-success="handleSuccess"
+                                                   :on-preview="handlePictureCardPreview"
+                                                   :on-remove="handleRemove">
+                                            <i class="el-icon-plus"></i>
+                                        </el-upload>
+                                        <el-dialog width="30%" :visible.sync="dialogVisible">
+                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                        </el-dialog>
+                                        <!--**********上传组件结束***********-->
+                                    </el-form-item>
+                                    <el-form-item label="昵称">
+                                        <el-input placeholder="请输入昵称"
+                                                  style="width: 200px" v-model="user.nickName"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="用户名">
+                                        <el-input disabled value="tom"
+                                                  style="width: 200px" :value="user.username"></el-input>
+                                    </el-form-item>
+                                    <el-form-item>
+                                        <el-button type="primary" @click="save()">保存信息</el-button>
+                                    </el-form-item>
+                                </el-form>
+                            </el-card>
+                        </el-col>
+                    </el-row>
+                </el-main>
+                <el-footer style="height: 280px;background-color: #2f3234;padding:50px 0">
+                    <div class="center" style="text-align: center;color: #666">
+                        <el-row>
+                            <el-col span="8">
+                                <img src="imgs/icon.png">
+                                <p>教程灵感就看烘焙坊</p>
+                                <p>烘焙行业网络社区平台</p>
+                                <p>全国百城上千个职位等你来</p>
+                            </el-col>
+                            <el-col span="8">
+                                <el-row id="footer_center">
+                                    <el-col span="8">
+                                        <h3>关于我们</h3>
+                                        <p>关于我们</p>
+                                        <p>烘焙学院</p>
+                                        <p>烘焙食谱</p>
+                                        <p>分类信息</p>
+                                        <p>求职招聘</p>
+                                        <p>社区交流</p>
+                                    </el-col>
+                                    <el-col span="8">
+                                        <h3>支持与服务</h3>
+                                        <p>联系我们</p>
+                                        <p>广告投放</p>
+                                        <p>用户协议</p>
+                                        <p>友情链接</p>
+                                        <p>在线反馈</p>
+                                        <p>我发投稿</p>
+                                    </el-col>
+                                    <el-col span="8">
+                                        <h3>底部导航</h3>
+                                        <p>Archiver</p>
+                                        <p>手机版</p>
+                                        <p>小黑屋</p>
+                                    </el-col>
+                                </el-row>
+
+                            </el-col>
+                            <el-col span="8">
+                                <div style="font-size: 58px;margin-top: 30px">
+                                    <span style="color: orange">烘焙</span><span style="color: #666666">坊</span>
+                                </div>
+                                <p>烘焙行业网络社区平台</p>
+                            </el-col>
+                        </el-row>
+                    </div>
+
+                </el-footer>
+            </el-container>
+        </div>
+    </body>
+    <!-- import Vue before Element -->
+    <script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    <!--引入axios框架文件-->
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <!--引入头部组件js文件-->
+    <script src="js/my-header.js"></script>
+    <script>
+        let v = new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    dialogImageUrl: '',
+                    dialogVisible: false,
+                    user: localStorage.user ? JSON.parse(localStorage.getItem("user")) : null,
+                    url: ""
+                }
+            },
+            methods: {
+                handleSuccess(response, file, fileList) {
+                    this.url = response.data;
+                },
+                handleRemove(file, fileList) {
+                    this.url = "";
+                    // file.response上传成功时服务器响应的内容ResultVO
+                    axios.get("/v1/upload/remove?url=" + file.response.data);
+                },
+                handlePictureCardPreview(file) {
+                    this.dialogImageUrl = file.url;
+                    this.dialogVisible = true;
+                },
+                save() {
+                    let newUser = {id: this.user.id, nickName: this.user.nickName};
+                    if (this.url !== "") {
+                        newUser.imgUrl = this.url;
+                    }
+                    // 发送请求将新的昵称和头像路径存储进数据库中
+                    axios.post("/v1/users/update", newUser).then(response => {
+                        if (response.data.code === 200) {
+                            // 把图片路径赋值给当前登录的用户对象
+                            if (this.url !== "") {
+                                this.user.imgUrl = this.url;
+                            }
+                            // 把最新的用户信息存储进localStorage中
+                            localStorage.setItem("user", JSON.stringify(this.user));
+                            location.reload();
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+</html>

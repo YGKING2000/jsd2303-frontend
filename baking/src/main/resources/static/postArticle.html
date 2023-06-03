@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- import CSS -->
+        <link rel="stylesheet" href="https://cdn.staticfile.org/element-ui/2.15.9/theme-chalk/index.css">
+        <!--引入富文本编辑器css-->
+        <link href="https://cdn.staticfile.org/wangeditor5/5.1.23/css/style.min.css" rel="stylesheet">
+
+        <style>
+            .center {
+                width: 1200px;
+                margin: 0 auto;
+            }
+
+            #footer_center p {
+                margin: 0;
+            }
+
+            #footer_center h3 {
+                color: white;
+            }
+
+            body {
+                background-color: rgb(241, 242, 243);
+            }
+
+            .el-header {
+                background-color: white;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="app">
+            <el-container>
+                <my-header></my-header>
+                <el-main class="center">
+                    <el-row gutter="20">
+                        <el-col span="4">
+
+                            <el-card style="height: 500px">
+                                <p @click="location.href='personal.html'">个人信息</p>
+                                <p style="color: orange">稿件管理</p>
+                            </el-card>
+                        </el-col>
+                        <el-col span="20">
+                            <el-card>
+                                <!--标签页卡开始-->
+                                <el-tabs v-model="c.type" type="card" @tab-click="handleClick">
+                                    <el-tab-pane label="食谱" name="1"></el-tab-pane>
+                                    <el-tab-pane label="视频" name="2"></el-tab-pane>
+                                    <el-tab-pane label="资讯" name="3"></el-tab-pane>
+                                </el-tabs>
+                                <!--标签页卡结束-->
+                                <!--发布文章表单开始-->
+                                <el-form label-width="100px">
+                                    <el-form-item label="文章标题">
+                                        <el-input style="width: 200px" placeholder="请输入标题"
+                                                  v-model="c.title"></el-input>
+                                    </el-form-item>
+                                    <el-form-item label="文章分类">
+                                        <el-select v-model="c.categoryId">
+                                            <el-option v-for="item in categoryList"
+                                                       :label="item.name" :value="item.id"></el-option>
+                                        </el-select>
+                                    </el-form-item>
+                                    <el-form-item label="封面">
+                                        <el-upload
+                                                action="/v1/upload"
+                                                name="file"
+                                                limit="1"
+                                                list-type="picture-card"
+                                                :on-success="handleSuccess"
+                                                :on-preview="handlePictureCardPreview"
+                                                :on-remove="handleRemove">
+                                            <i class="el-icon-plus"></i>
+                                        </el-upload>
+                                        <el-dialog width="30%" :visible.sync="dialogVisible">
+                                            <img width="100%" :src="dialogImageUrl" alt="">
+                                        </el-dialog>
+                                    </el-form-item>
+                                    <el-form-item label="文章视频" v-show="c.type == 2">
+                                        <el-upload style="width: 300px"
+                                                action="/v1/upload"
+                                                accept="video/mp4,video/x-m4v,video/*"
+                                                name="file"
+                                                limit="1"
+                                                :on-success="handleSuccess"
+                                                :on-preview="handlePictureCardPreview"
+                                                :on-remove="handleRemove">
+                                            <el-button type="primary">点击上传</el-button>
+                                            <div>只能上传MP4文件,且不超过100MB</div>
+                                        </el-upload>
+                                    </el-form-item>
+                                    <el-form-item label="文章内容" v-show="c.type != 2">
+                                        <div style="border: 1px solid #ccc">
+                                            <div id="toolbar-container" style="border-bottom: 1px solid #ccc;">
+                                                <!-- 工具栏 --></div>
+                                            <div id="editor-container" style="height: 300px;"><!-- 编辑器 --></div>
+                                        </div>
+                                    </el-form-item>
+                                    <el-form-item>
+                                        <el-button type="primary" @click="post()">发布</el-button>
+                                    </el-form-item>
+
+                                </el-form>
+
+                                <!--发布文章表单结束-->
+
+                            </el-card>
+                        </el-col>
+                    </el-row>
+                </el-main>
+                <el-footer style="height: 280px;background-color: #2f3234;padding:50px 0">
+                    <div class="center" style="text-align: center;color: #666">
+                        <el-row>
+                            <el-col span="8">
+                                <img src="imgs/icon.png">
+                                <p>教程灵感就看烘焙坊</p>
+                                <p>烘焙行业网络社区平台</p>
+                                <p>全国百城上千个职位等你来</p>
+                            </el-col>
+                            <el-col span="8">
+                                <el-row id="footer_center">
+                                    <el-col span="8">
+                                        <h3>关于我们</h3>
+                                        <p>关于我们</p>
+                                        <p>烘焙学院</p>
+                                        <p>烘焙食谱</p>
+                                        <p>分类信息</p>
+                                        <p>求职招聘</p>
+                                        <p>社区交流</p>
+                                    </el-col>
+                                    <el-col span="8">
+                                        <h3>支持与服务</h3>
+                                        <p>联系我们</p>
+                                        <p>广告投放</p>
+                                        <p>用户协议</p>
+                                        <p>友情链接</p>
+                                        <p>在线反馈</p>
+                                        <p>我发投稿</p>
+                                    </el-col>
+                                    <el-col span="8">
+                                        <h3>底部导航</h3>
+                                        <p>Archiver</p>
+                                        <p>手机版</p>
+                                        <p>小黑屋</p>
+                                    </el-col>
+                                </el-row>
+
+                            </el-col>
+                            <el-col span="8">
+                                <div style="font-size: 58px;margin-top: 30px">
+                                    <span style="color: orange">烘焙</span><span style="color: #666666">坊</span>
+                                </div>
+                                <p>烘焙行业网络社区平台</p>
+                            </el-col>
+                        </el-row>
+                    </div>
+
+                </el-footer>
+            </el-container>
+        </div>
+    </body>
+    <!-- import Vue before Element -->
+    <script src="https://cdn.staticfile.org/vue/2.6.14/vue.min.js"></script>
+    <!-- import JavaScript -->
+    <script src="https://cdn.staticfile.org/element-ui/2.15.9/index.min.js"></script>
+    <!--引入axios框架文件-->
+    <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
+    <!--引入头部组件js文件-->
+    <script src="js/my-header.js"></script>
+    <!--引入富文本编辑器js-->
+    <script src="https://cdn.staticfile.org/wangeditor5/5.1.23/index.min.js"></script>
+    <script>
+        let v = new Vue({
+            el: '#app',
+            data: function () {
+                return {
+                    dialogImageUrl: "",
+                    dialogVisible: false,
+                    categoryList: [],
+                    subType: "",
+                    c: {type: "1", title: "", imgUrl: "", content: "", videoUrl: "", categoryId: ""}
+                }
+            },
+            methods: {
+                post() {
+                    if (this.c.type == 2 &&this.c.videoUrl === "") {
+                        this.$message.error("请选择文章视频!");
+                        return;
+                    }
+                    if (this.c.imgUrl === "") {
+                        this.$message.error("请选择封面图面！")
+                        return;
+                    }
+                    if (this.c.categoryId === "") {
+                        this.$message.error("请选择分类!");
+                        return;
+                    }
+                    // 设置发布者id
+                    this.c.createBy = JSON.parse(localStorage.getItem("user")).id;
+                    // 截取内容的前50个字符作为摘要: slice(起始位置, 结束位置)
+                    this.c.brief = this.c.content.slice(0, 50);
+                    axios.post("/v1/contents/add-new", this.c).then(response => {
+                        if (response.data.code === 200) {
+                            this.$message.success("文章发布成功!");
+                            location.href = "/articleManagement.html";
+                        }
+                    });
+                },
+                // 请求文章二级分类的方法: 当切换文章类型时触发
+                handleClick() {
+                    // 清空富文本里的内容
+                    editor.setHtml("");
+                    axios.get(`/v1/categories/${this.c.type}/sub`).then(response => {
+                        if (response.data.code === 200) {
+                            this.categoryList = response.data.data;
+                            this.c.categoryId = "";
+                            this.c.title = "";
+                        }
+                    });
+                },
+                // 上传封面图片/文章视频的成功的回调
+                handleSuccess(response, file) {
+                    // 保存服务器返回的存储
+                    if (file.raw.type.includes("image")) {
+                        this.c.imgUrl = response.data;
+                    } else {
+                        this.c.videoUrl = response.data;
+                    }
+                },
+                handleRemove(file) {
+                    // 判断删除的是图片还是视频
+                    if (file.raw.type.includes("image")) {
+                        // 删除上传图片时清空浏览器显示的封面图片的地址
+                        this.c.imgUrl = "";
+                    } else {
+                        this.c.videoUrl = "";
+                    }
+                    axios.get(`/v1/upload/remove?url=${file.response.data}`);
+                },
+                handlePictureCardPreview(file) {
+                    this.dialogImageUrl = file.url;
+                    this.dialogVisible = true;
+                }
+            },
+            created() {
+                // 在页面创建时请求1次文章二级分类
+                this.handleClick();
+            }
+        })
+
+
+        /**********富文本编辑器相关js开始***********/
+        const {createEditor, createToolbar} = window.wangEditor
+        const editorConfig = {
+            placeholder: '请填写详情...',
+            onChange(editor) {
+                // 当富文本编辑器里面的值发生改变时 把值赋值给内容对象
+                v.c.content = editor.getHtml();
+            }
+        }
+        const editor = createEditor({
+            selector: '#editor-container',
+            html: '<p><br></p>',
+            config: editorConfig,
+            mode: 'simple',
+        })
+        const toolbarConfig = {}
+        const toolbar = createToolbar({
+            editor,
+            selector: '#toolbar-container',
+            config: toolbarConfig,
+            mode: 'simple',
+        })
+        /**********富文本编辑器相关js结束***********/
+    </script>
+</html>
