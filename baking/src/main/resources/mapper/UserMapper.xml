@@ -25,7 +25,7 @@
                 password = #{password},
             </if>
             <if test="isAdmin != null">
-                isAdmin = #{is_admin},
+                is_admin = #{isAdmin},
             </if>
             <if test="createTime != null">
                 create_time = #{createTime},
@@ -36,4 +36,16 @@
         </set>
         WHERE id = #{id}
     </update>
+
+    <select id="select" resultType="com.example.baking.pojo.vo.UserAdminVO">
+        SELECT id, user_name, nick_name, is_admin, create_time, img_url
+        FROM t_user
+        ORDER BY create_time DESC
+    </select>
+
+    <delete id="deleteById">
+        DELETE
+        FROM t_user
+        WHERE id = #{id}
+    </delete>
 </mapper>

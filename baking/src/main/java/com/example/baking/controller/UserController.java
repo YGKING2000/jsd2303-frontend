@@ -79,6 +79,27 @@ public class UserController {
         mapper.update(user);
         return ResultVO.ok();
     }
+    
+    @GetMapping("/list")
+    public ResultVO list() {
+        return ResultVO.ok(mapper.select());
+    }
+    
+    @PostMapping("/{id}/{isAdmin}/change")
+    public ResultVO changeIsAdmin(@PathVariable Long id, @PathVariable Integer isAdmin) {
+        User user = new User();
+        user.setId(id);
+        user.setIsAdmin(isAdmin);
+        System.out.println(user);
+        mapper.update(user);
+        return ResultVO.ok();
+    }
+    
+    @PostMapping("/{id}/delete")
+    public ResultVO delete(@PathVariable Long id) {
+        mapper.deleteById(id);
+        return ResultVO.ok();    
+    }
 }
 
 

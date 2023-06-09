@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 @Slf4j // lombok提供的日志注解，在代码层面会为我们提供一个org.slf4j.Logger对象
 @RestControllerAdvice //相当于@ControllerAdvice + @ResponseBody
 public class GlobalExceptionHandler {
-
+    
     @ExceptionHandler({InternalAuthenticationServiceException.class, BadCredentialsException.class})
     public ResultVO handlerAuthenticationException(AuthenticationException e) {
         if (e instanceof InternalAuthenticationServiceException) {

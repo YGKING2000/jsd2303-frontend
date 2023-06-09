@@ -1,7 +1,7 @@
 package com.example.baking.mapper;
 
 import com.example.baking.pojo.entity.Content;
-import com.example.baking.pojo.vo.ContentVO;
+import com.example.baking.pojo.vo.*;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -17,7 +17,29 @@ public interface ContentMapper {
     
     void insert(Content content);
 
-    List<ContentVO> selectByTypeCreateBy(Integer type, Integer createBy);
+    List<ContentManagementVO> selectByType(Integer type, Long createBy);
 
-    void deleteById(Integer id);
+    void deleteById(Long id);
+
+    ContentEditVO selectByIdForEdit(Long id);
+
+    void update(Content content);
+
+    List<ContentIndexVO> selectByTypeAndCategoryId(Integer type, Long categoryId);
+
+    List<ContentIndexVO> selectByTypeForList(Integer type);
+
+    ContentDetailVO selectByIdForDetail(Long id);
+
+    List<ContentSimpleVO> selectOthersByUserId(Integer userId, Long id);
+
+    void updateViewCountById(Long id);
+
+    List<ContentSimpleVO> selectHotOrderByViewCount();
+
+    List<ContentIndexVO> selectByKeyword(String keyword);
+
+    List<ContentAdminVO> selectByTypeForAdmin(Integer type);
+
+    void updateCommentCount(Long contentId);
 }   

@@ -1,25 +1,22 @@
-package com.example.baking.pojo.dto;
+package com.example.baking.pojo.vo;
 
 import lombok.Data;
-
-import java.util.Date;
 
 /**
  * @author YGKING e-mail:hrd18960706057@163.com
  * @version 1.0
  * @description
- * @className ContentDTO
- * @date 2023/06/02 11:50
+ * @className ContentEditVO
+ * @date 2023/06/05 11:47
  */
 @Data
-public class ContentDTO {
+public class ContentEditVO {
     private Long id;
     private String title;
     private String imgUrl;
     private String videoUrl;
-    private String brief;
-    private Long type;
+    private Integer type;
     private Long categoryId;
-    private Long createBy;
     private String content;
+    private Integer createBy;
 }

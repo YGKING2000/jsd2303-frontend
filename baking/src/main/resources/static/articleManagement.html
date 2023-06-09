@@ -34,7 +34,6 @@
                 <el-main class="center">
                     <el-row gutter="20">
                         <el-col span="4">
-
                             <el-card style="height: 500px">
                                 <p @click="location.href='personal.html'">个人信息</p>
                                 <p style="color: orange">稿件管理</p>
@@ -49,7 +48,9 @@
                                     <el-tab-pane label="资讯" name="3"></el-tab-pane>
                                 </el-tabs>
                                 <!--标签页卡结束-->
-                                <el-button type="primary" @click="location.href = '/postArticle.html'">发帖</el-button>
+                                <el-button type="primary"
+                                           @click="location.href=`/postArticle.html?type=${type}`">发帖
+                                </el-button>
                                 <!--内容列表开始-->
                                 <el-table :data="contentList" border>
                                     <el-table-column label="标题" width="150px"
@@ -60,18 +61,17 @@
                                         </template>
 
                                     </el-table-column>
-                                    <el-table-column label="摘要" width="300px"
-                                                     prop="brief" align="center"></el-table-column>
-                                    <el-table-column label="类型"
-                                                     prop="categoryName" align="center"></el-table-column>
-                                    <el-table-column label="浏览量"
-                                                     prop="viewCount" align="center"></el-table-column>
-                                    <el-table-column label="回复量"
-                                                     prop="commentCount" align="center"></el-table-column>
-                                    <el-table-column label="创建时间"
-                                                     prop="createTime" align="center"></el-table-column>
-                                    <el-table-column label="操作" width="200px" fixed="right"
-                                                     align="center">
+                                    <el-table-column align="center" label="摘要" prop="brief" width="300px">
+                                        <template slot-scope="scope">
+                                            <div v-html="scope.row.brief"></div>
+                                        </template>
+                                    </el-table-column>
+                                    <el-table-column align="center" label="类型" prop="categoryName"></el-table-column>
+                                    <el-table-column align="center" label="浏览量" prop="viewCount"></el-table-column>
+                                    <el-table-column align="center" label="回复量" prop="commentCount"></el-table-column>
+                                    <el-table-column align="center" label="创建时间" prop="createTime"
+                                                     width="240"></el-table-column>
+                                    <el-table-column align="center" fixed="right" label="操作" width="200px">
                                         <template slot-scope="scope">
                                             <el-button size="mini" type="success"
                                                        @click="handleEdit(scope.$index, scope.row)">编辑
@@ -88,52 +88,7 @@
                     </el-row>
                 </el-main>
                 <el-footer style="height: 280px;background-color: #2f3234;padding:50px 0">
-                    <div class="center" style="text-align: center;color: #666">
-                        <el-row>
-                            <el-col span="8">
-                                <img src="imgs/icon.png">
-                                <p>教程灵感就看烘焙坊</p>
-                                <p>烘焙行业网络社区平台</p>
-                                <p>全国百城上千个职位等你来</p>
-                            </el-col>
-                            <el-col span="8">
-                                <el-row id="footer_center">
-                                    <el-col span="8">
-                                        <h3>关于我们</h3>
-                                        <p>关于我们</p>
-                                        <p>烘焙学院</p>
-                                        <p>烘焙食谱</p>
-                                        <p>分类信息</p>
-                                        <p>求职招聘</p>
-                                        <p>社区交流</p>
-                                    </el-col>
-                                    <el-col span="8">
-                                        <h3>支持与服务</h3>
-                                        <p>联系我们</p>
-                                        <p>广告投放</p>
-                                        <p>用户协议</p>
-                                        <p>友情链接</p>
-                                        <p>在线反馈</p>
-                                        <p>我发投稿</p>
-                                    </el-col>
-                                    <el-col span="8">
-                                        <h3>底部导航</h3>
-                                        <p>Archiver</p>
-                                        <p>手机版</p>
-                                        <p>小黑屋</p>
-                                    </el-col>
-                                </el-row>
-
-                            </el-col>
-                            <el-col span="8">
-                                <div style="font-size: 58px;margin-top: 30px">
-                                    <span style="color: orange">烘焙</span><span style="color: #666666">坊</span>
-                                </div>
-                                <p>烘焙行业网络社区平台</p>
-                            </el-col>
-                        </el-row>
-                    </div>
-
+                    <my-footer></my-footer>
                 </el-footer>
             </el-container>
         </div>
@@ -146,20 +101,23 @@
     <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
     <!--引入头部组件js文件-->
     <script src="js/my-header.js"></script>
+    <script src="js/my-footer.js"></script>
     <script>
         let v = new Vue({
             el: '#app',
             data: function () {
                 return {
                     type: '1',
-                    contentList: [],
-                    createBy: JSON.parse(localStorage.getItem("user")).id,
+                    contentList: []
                 }
             },
             methods: {
+                handleEdit(index, content) {
+                    location.href = `/postArticle.html?id=${content.id}`;
+                },
                 handleDelete(index, content) {
-                    if (confirm(`确认删除${content.title}吗？`)) {
-                        axios.get(`/v1/contents/${content.id}/delete`).then(response => {
+                    if (confirm(`确认删除[${content.title}]吗？`)) {
+                        axios.post(`/v1/contents/${content.id}/delete`).then(response => {
                             if (response.data.code === 200) {
                                 this.$message.success("删除成功!");
                                 this.handleClick();
@@ -168,9 +126,12 @@
                     }
                 },
                 handleClick(tab, event) {
-                    axios.get(`/v1/contents/${this.type}/${this.createBy}/list`).then(response => {
+                    axios.get(`/v1/contents/${this.type}/management`).then(response => {
                         if (response.data.code === 200) {
                             this.contentList = response.data.data;
+                        } else {
+                            this.$message.error(response.data.msg);
+                            location.href = "/login.html";
                         }
                     });
                 }

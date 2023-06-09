@@ -35,12 +35,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // super.configure(http);
-
         // 当访问需要登录认证才能访问的资源时，没有登录的时跳转到登录页面
         http.formLogin().loginPage("/login.html");// 弹出登录界面
-        /*"/", "/index.html", "/v1/banners/",
-                "/reg.html", "/login.html", "/v1/users/login", "/v1/users/reg"*/
         // 设置黑名单(需要登录即可访问的资源)
         String[] urls = {"/admin.html", "/personal.html", "/postArticle.html", "/articleManagement.html"};
         http.authorizeRequests()// 对请求进行授权

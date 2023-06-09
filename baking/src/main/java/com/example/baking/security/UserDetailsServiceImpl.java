@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         }
         String role = userVO.getIsAdmin() == 1 ? "ADMIN" : "USER";
         List<GrantedAuthority> list = AuthorityUtils.createAuthorityList(role);
-        return new CustomUserDetails(userVO.getId(), userVO.getNickName(), userVO.getImgUrl(), username,
-                userVO.getPassword(), list);
+        return new CustomUserDetails(userVO.getId(), userVO.getNickName(), userVO.getImgUrl(),
+                userVO.getIsAdmin(), username, userVO.getPassword(), list);
     }
 }

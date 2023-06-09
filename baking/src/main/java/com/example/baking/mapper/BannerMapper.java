@@ -1,5 +1,6 @@
 package com.example.baking.mapper;
 
+import com.example.baking.pojo.vo.BannerAdminVO;
 import com.example.baking.pojo.vo.BannerVO;
 import org.springframework.stereotype.Repository;
 
@@ -14,4 +15,8 @@ import java.util.List;
 @Repository
 public interface BannerMapper {
     List<BannerVO> select();
+
+    List<BannerAdminVO> selectForAdmin();
+
+    void deleteById(Long id);
 }

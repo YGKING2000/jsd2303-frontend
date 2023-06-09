@@ -25,6 +25,14 @@
             .el-header {
                 background-color: white;
             }
+
+            .title_p {
+                height: 40px;
+                overflow: hidden;
+                display: -webkit-box;
+                -webkit-line-clamp: 2;
+                -webkit-box-orient: vertical;
+            }
         </style>
     </head>
     <body>
@@ -33,7 +41,7 @@
                 <my-header></my-header>
                 <el-main class="center">
                     <el-carousel height="375px">
-                        <el-carousel-item v-for="banner in bannerArr">
+                        <el-carousel-item v-for="banner in bannerList">
                             <img :src="banner.imgUrl" width="100%">
                         </el-carousel-item>
                     </el-carousel>
@@ -44,21 +52,24 @@
                         </el-col>
                         <el-col span="21">
                             <!--食谱导航开始-->
-                            <el-menu mode="horizontal" default-active="0" active-text-color="orange">
+                            <el-menu active-text-color="orange" default-active="0"
+                                     mode="horizontal" @select="recipeSelect">
                                 <el-menu-item index="0">全部</el-menu-item>
-                                <el-menu-item index="1">面包</el-menu-item>
-                                <el-menu-item index="2">零食</el-menu-item>
-                                <el-menu-item index="3">家常菜</el-menu-item>
+                                <el-menu-item v-for="c in recipeCategoryList" :index="c.id">
+                                    {{ c.name }}
+                                </el-menu-item>
                             </el-menu>
                             <!--食谱导航结束-->
                         </el-col>
                     </el-row>
                     <!--食谱列表开始-->
                     <el-row gutter="20">
-                        <el-col v-for="r in recipeArr" span="6">
+                        <el-col v-for="r in recipeList" span="6">
                             <el-card style="margin: 10px 0">
-                                <img :src="r.imgUrl" width="100%" height="144">
-                                <p style="height: 40px">{{ r.title }}</p>
+                                <a :href=`/detail.html?id=${r.id}` style="color:#333; text-decoration: none;">
+                                    <img :src="r.imgUrl" height="144" width="100%">
+                                    <p class="title_p">{{ r.title }}</p>
+                                </a>
                                 <el-row gutter="20">
                                     <el-col span="4">
                                         <!--圆形图片,专门用来显示头像-->
@@ -66,16 +77,15 @@
                                     </el-col>
                                     <el-col span="10">{{ r.nickName }}</el-col>
                                     <el-col span="10">
-                                        <span style="float: right;font-size: 12px;color: #ccc">{{
-                                                r.categoryName
-                                            }}</span>
+                                        <span style="float: right;font-size: 12px;color: #ccc">
+                                            {{ r.categoryName }}</span>
                                     </el-col>
                                 </el-row>
                             </el-card>
                         </el-col>
                     </el-row>
                     <div style="text-align: center;margin-bottom: 20px">
-                        <el-button>点击查看更多食谱</el-button>
+                        <el-button @click="location.href='/contentList.html?type=1'">点击查看更多食谱</el-button>
                     </div>
                     <!--食谱列表结束-->
                     <!--食谱结束-->
@@ -87,21 +97,24 @@
                         </el-col>
                         <el-col span="21">
                             <!--视频导航开始-->
-                            <el-menu mode="horizontal" default-active="0" active-text-color="orange">
+                            <el-menu active-text-color="orange" default-active="0"
+                                     mode="horizontal" @select="videoSelect">
                                 <el-menu-item index="0">全部</el-menu-item>
-                                <el-menu-item index="1">面包教学</el-menu-item>
-                                <el-menu-item index="2">零食鉴赏</el-menu-item>
-                                <el-menu-item index="3">家常菜教程</el-menu-item>
+                                <el-menu-item v-for="c in videoCategoryList" :index="c.id">
+                                    {{ c.name }}
+                                </el-menu-item>
                             </el-menu>
                             <!--视频导航结束-->
                         </el-col>
                     </el-row>
                     <!--视频列表开始-->
                     <el-row gutter="20">
-                        <el-col v-for="r in recipeArr" span="6">
+                        <el-col v-for="r in videoList" span="6">
                             <el-card style="margin: 10px 0">
-                                <img :src="r.imgUrl" width="100%" height="144">
-                                <p style="height: 40px">{{ r.title }}</p>
+                                <a :href=`/detail.html?id=${r.id}` style="color:#333; text-decoration: none;">
+                                    <img :src="r.imgUrl" height="144" width="100%">
+                                    <p class="title_p">{{ r.title }}</p>
+                                </a>
                                 <el-row gutter="20">
                                     <el-col span="4">
                                         <!--圆形图片,专门用来显示头像-->
@@ -118,7 +131,7 @@
                         </el-col>
                     </el-row>
                     <div style="text-align: center;margin-bottom: 20px">
-                        <el-button>点击查看更多视频</el-button>
+                        <el-button @click="location.href='/contentList.html?type=2'">点击查看更多视频</el-button>
                     </div>
                     <!--视频列表结束-->
                     <!--视频结束-->
@@ -130,20 +143,24 @@
                         </el-col>
                         <el-col span="21">
                             <!--资讯导航开始-->
-                            <el-menu mode="horizontal" default-active="0" active-text-color="orange">
+                            <el-menu active-text-color="orange" default-active="0"
+                                     mode="horizontal" @select="infoSelect">
                                 <el-menu-item index="0">全部</el-menu-item>
-                                <el-menu-item index="1">美食资讯</el-menu-item>
-                                <el-menu-item index="2">店家资讯</el-menu-item>
+                                <el-menu-item v-for="c in infoCategoryList" :index="c.id">
+                                    {{ c.name }}
+                                </el-menu-item>
                             </el-menu>
                             <!--资讯导航结束-->
                         </el-col>
                     </el-row>
                     <!--资讯列表开始-->
                     <el-row gutter="20">
-                        <el-col v-for="r in recipeArr" span="6">
+                        <el-col v-for="r in infoList" span="6">
                             <el-card style="margin: 10px 0">
-                                <img :src="r.imgUrl" width="100%" height="144">
-                                <p style="height: 40px">{{ r.title }}</p>
+                                <a :href=`/detail.html?id=${r.id}` style="color:#333; text-decoration: none;">
+                                    <img :src="r.imgUrl" height="144" width="100%">
+                                    <p class="title_p">{{ r.title }}</p>
+                                </a>
                                 <el-row gutter="20">
                                     <el-col span="4">
                                         <!--圆形图片,专门用来显示头像-->
@@ -151,67 +168,21 @@
                                     </el-col>
                                     <el-col span="10">{{ r.nickName }}</el-col>
                                     <el-col span="10">
-                                        <span style="float: right;font-size: 12px;color: #ccc">{{
-                                                r.categoryName
-                                            }}</span>
+                                        <span style="float: right;font-size: 12px;color: #ccc">
+                                            {{ r.categoryName }}</span>
                                     </el-col>
                                 </el-row>
                             </el-card>
                         </el-col>
                     </el-row>
                     <div style="text-align: center;margin-bottom: 20px">
-                        <el-button>点击查看更多资讯</el-button>
+                        <el-button @click="location.href='/contentList.html?type=3'">点击查看更多资讯</el-button>
                     </div>
                     <!--资讯列表结束-->
                     <!--资讯结束-->
                 </el-main>
-                <el-footer style="height: 280px;background-color: #2f3234;padding:50px 0">
-                    <div class="center" style="text-align: center;color: #666">
-                        <el-row>
-                            <el-col span="8">
-                                <img src="imgs/icon.png">
-                                <p>教程灵感就看烘焙坊</p>
-                                <p>烘焙行业网络社区平台</p>
-                                <p>全国百城上千个职位等你来</p>
-                            </el-col>
-                            <el-col span="8">
-                                <el-row id="footer_center">
-                                    <el-col span="8">
-                                        <h3>关于我们</h3>
-                                        <p>关于我们</p>
-                                        <p>烘焙学院</p>
-                                        <p>烘焙食谱</p>
-                                        <p>分类信息</p>
-                                        <p>求职招聘</p>
-                                        <p>社区交流</p>
-                                    </el-col>
-                                    <el-col span="8">
-                                        <h3>支持与服务</h3>
-                                        <p>联系我们</p>
-                                        <p>广告投放</p>
-                                        <p>用户协议</p>
-                                        <p>友情链接</p>
-                                        <p>在线反馈</p>
-                                        <p>我发投稿</p>
-                                    </el-col>
-                                    <el-col span="8">
-                                        <h3>底部导航</h3>
-                                        <p>Archiver</p>
-                                        <p>手机版</p>
-                                        <p>小黑屋</p>
-                                    </el-col>
-                                </el-row>
-
-                            </el-col>
-                            <el-col span="8">
-                                <div style="font-size: 58px;margin-top: 30px">
-                                    <span style="color: orange">烘焙</span><span style="color: #666666">坊</span>
-                                </div>
-                                <p>烘焙行业网络社区平台</p>
-                            </el-col>
-                        </el-row>
-                    </div>
-
+                <el-footer style="height: 280px; background-color: #2f3234; padding:50px 0">
+                    <my-footer></my-footer>
                 </el-footer>
             </el-container>
         </div>
@@ -224,53 +195,75 @@
     <script src="https://cdn.bootcss.com/axios/0.18.0/axios.min.js"></script>
     <!--引入头部组件js文件-->
     <script src="js/my-header.js"></script>
+    <script src="js/my-footer.js"></script>
     <script>
         let v = new Vue({
             el: '#app',
             data: function () {
                 return {
-                    recipeArr:[
-                        {
-                            "id": 27,
-                            "title": "家常面包",
-                            "imgUrl": "imgs/a.jpg",
-                            "categoryName": "面包",
-                            "nickName": "汤姆",
-                            "userImgUrl": "imgs/head.jpg"
-                        },
-                        {
-                            "id": 18,
-                            "title": "爆浆抹茶甜甜圈面包，自带幸福感的小甜甜",
-                            "imgUrl": "imgs/b.jpg",
-                            "categoryName": "家常菜",
-                            "nickName": "汤姆",
-                            "userImgUrl": "imgs/head.jpg"
-                        },
-                        {
-                            "id": 17,
-                            "title": "心形火龙果椰蓉面包,任谁都抗拒不了",
-                            "imgUrl": "imgs/c.jpg",
-                            "categoryName": "小食",
-                            "nickName": "汤姆",
-                            "userImgUrl": "imgs/head.jpg"
-                        },
-                        {
-                            "id": 16,
-                            "title": "蔓越莓绿豆糕，味道还不错值得一试!",
-                            "imgUrl": "imgs/d.jpg",
-                            "categoryName": "面包",
-                            "nickName": "汤姆",
-                            "userImgUrl": "imgs/head.jpg"
-                        },
-                    ],
-                    bannerArr: []
+                    recipeList: [],
+                    videoList: [],
+                    infoList: [],
+                    bannerList: [],
+                    recipeCategoryList: [],
+                    videoCategoryList: [],
+                    infoCategoryList: []
                 }
             },
-            methods: {},
+            methods: {
+                recipeSelect(key, keyPath) {
+                    this.loadContent(1, key);
+                },
+                videoSelect(key, keyPath) {
+                    this.loadContent(2, key);
+                },
+                infoSelect(key, keyPath) {
+                    this.loadContent(3, key);
+                },
+                loadContent(type, categoryId) {
+                    // 请求指定一级分类type下的指定二级分类下的内容
+                    axios.get(`/v1/contents/${type}/${categoryId}/index`).then(response => {
+                        if (response.data.code === 200) {
+                            switch (type) {
+                                case 1:
+                                    this.recipeList = response.data.data;
+                                    break;
+                                case 2:
+                                    this.videoList = response.data.data;
+                                    break;
+                                case 3:
+                                    this.infoList = response.data.data;
+                            }
+                        }
+                    });
+                }
+            },
             created() {
+                this.loadContent(1, 0);
+                this.loadContent(2, 0);
+                this.loadContent(3, 0);
+                // 请求轮播图数据
                 axios.get("/v1/banners/").then(response => {
                     if (response.data.code === 200) {
-                        this.bannerArr = response.data.data;
+                        this.bannerList = response.data.data;
+                    }
+                });
+                // 根据食谱分类ID请求对应二级分类
+                axios.get("/v1/categories/1/sub").then(response => {
+                    if (response.data.code === 200) {
+                        this.recipeCategoryList = response.data.data;
+                    }
+                });
+                // 根据视频分类ID请求对应二级分类
+                axios.get("/v1/categories/2/sub").then(response => {
+                    if (response.data.code === 200) {
+                        this.videoCategoryList = response.data.data;
+                    }
+                });
+                // 根据资讯分类ID请求对应二级分类
+                axios.get("/v1/categories/3/sub").then(response => {
+                    if (response.data.code === 200) {
+                        this.infoCategoryList = response.data.data;
                     }
                 });
             }

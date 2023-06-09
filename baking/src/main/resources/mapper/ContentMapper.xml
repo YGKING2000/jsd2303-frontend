@@ -8,7 +8,7 @@
                 NULL, NULL, #{brief}, #{categoryId})
     </insert>
 
-    <select id="selectByTypeCreateBy" resultType="com.example.baking.pojo.vo.ContentVO">
+    <select id="selectByType" resultType="com.example.baking.pojo.vo.ContentManagementVO">
         SELECT c.id,
                c.title,
                c.img_url,
@@ -23,9 +23,140 @@
         WHERE c.type = #{type}
           AND c.create_by = #{createBy}
     </select>
-    
+
+    <select id="selectByIdForEdit" resultType="com.example.baking.pojo.vo.ContentEditVO">
+        SELECT id, title, img_url, video_url, category_id, type, content, create_by
+        FROM t_content
+        WHERE id = #{id}
+    </select>
+
+    <update id="update">
+        UPDATE t_content
+        <set>
+            <if test="title!=null">title = #{title},</if>
+            <if test="imgUrl!=null">img_url = #{imgUrl},</if>
+            <if test="brief!=null">brief = #{brief},</if>
+            <if test="videoUrl!=null">video_url = #{videoUrl},</if>
+            <if test="type!=null">type = #{type},</if>
+            <if test="categoryId!=null">category_id = #{categoryId},</if>
+            <if test="viewCount!=null">view_count = #{viewCount},</if>
+            <if test="commentCount!=null">comment_count = #{commentCount},</if>
+            <if test="updateBy!=null">update_by = #{updateBy},</if>
+            <if test="updateTime!=null">update_time = #{updateTime},</if>
+            <if test="content!=null">content = #{content}</if>
+        </set>
+        WHERE id = #{id}
+    </update>
+
     <delete id="deleteById">
-        DELETE FROM t_content
+        DELETE
+        FROM t_content
         WHERE id = #{id}
     </delete>
+
+    <select id="selectByTypeAndCategoryId" resultType="com.example.baking.pojo.vo.ContentIndexVO">
+        SELECT c.id AS `id`,
+        c.title AS `title`,
+        tc.name AS `categoryName`,
+        u.nick_name AS `nickName`,
+        u.img_url AS `userImgUrl`,
+        c.img_url AS `imgUrl`
+        FROM t_content AS `c`
+        JOIN t_category AS `tc` ON c.category_id = tc.id
+        JOIN t_user AS `u` ON c.create_by = u.id
+        WHERE c.type = #{type}
+        <if test="categoryId != 0">
+            AND c.category_id = #{categoryId}
+        </if>
+        ORDER BY c.create_time DESC
+        LIMIt 0, 8
+    </select>
+
+    <select id="selectByTypeForList" resultType="com.example.baking.pojo.vo.ContentIndexVO">
+        SELECT c.id        AS `id`,
+               c.title     AS `title`,
+               tc.name     AS `categoryName`,
+               u.nick_name AS `nickName`,
+               u.img_url   AS `userImgUrl`,
+               c.img_url   AS `imgUrl`
+        FROM t_content AS `c`
+                 JOIN t_category AS `tc` ON c.category_id = tc.id
+                 JOIN t_user AS `u` ON c.create_by = u.id
+        WHERE c.type = #{type}
+        ORDER BY c.create_time DESC
+    </select>
+
+    <select id="selectByIdForDetail" resultType="com.example.baking.pojo.vo.ContentDetailVO">
+        SELECT c.id            AS `id`,
+               c.title         AS `title`,
+               c.brief         AS `brief`,
+               c.video_url     AS `videoUrl`,
+               c.img_url       AS `imgUrl`,
+               c.content       AS `content`,
+               c.type          AS `type`,
+               c.view_count    AS `viewCount`,
+               c.comment_count AS `commentCount`,
+               c.create_time   AS `createTime`,
+               u.id            AS `userId`,
+               u.nick_name     AS `nickName`,
+               u.img_url       AS `userImgUrl`
+        FROM t_content AS `c`
+                 JOIN t_user AS `u` ON c.create_by = u.id
+        WHERE c.id = #{id}
+    </select>
+
+    <select id="selectOthersByUserId" resultType="com.example.baking.pojo.vo.ContentSimpleVO">
+        SELECT id, title, img_url, create_time
+        FROM t_content
+        WHERE create_by = #{userId}
+          AND id != #{id}
+        LIMIT 0, 4
+    </select>
+
+    <update id="updateViewCountById">
+        UPDATE t_content
+        SET view_count = view_count + 1
+        WHERE id = #{id}
+    </update>
+
+    <select id="selectHotOrderByViewCount" resultType="com.example.baking.pojo.vo.ContentSimpleVO">
+        SELECT id, title, img_url, view_count
+        FROM t_content
+        ORDER BY view_count DESC
+        LIMIT 0, 4
+    </select>
+
+    <select id="selectByKeyword" resultType="com.example.baking.pojo.vo.ContentIndexVO">
+        SELECT c.id        AS `id`,
+               c.title     AS `title`,
+               tc.name     AS `categoryName`,
+               u.nick_name AS `nickName`,
+               u.img_url   AS `userImgUrl`,
+               c.img_url   AS `imgUrl`
+        FROM t_content AS `c`
+                 JOIN t_category AS `tc` ON c.category_id = tc.id
+                 JOIN t_user AS `u` ON c.create_by = u.id
+        WHERE c.title LIKE CONCAT('%', #{keyword}, '%')
+        ORDER BY c.create_time DESC
+    </select>
+
+    <select id="selectByTypeForAdmin" resultType="com.example.baking.pojo.vo.ContentAdminVO">
+        SELECT c.id            AS `id`,
+               c.title         AS `title`,
+               c.img_url       AS `imgUrl`,
+               c.brief         AS `brief`,
+               cat.name        AS `categoryName`,
+               c.view_count    AS `viewCount`,
+               c.comment_count AS `commentCount`,
+               c.create_time   AS `createTime`
+        FROM t_content AS `c`
+                 JOIN t_category AS `cat` ON c.category_id = cat.id
+        WHERE c.type = #{type}
+    </select>
+
+    <update id="updateCommentCount">
+        UPDATE t_content
+        SET comment_count = comment_count + 1
+        WHERE id = #{contentId}
+    </update>
 </mapper>

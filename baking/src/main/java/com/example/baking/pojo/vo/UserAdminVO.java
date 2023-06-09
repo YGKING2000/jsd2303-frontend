@@ -9,19 +9,16 @@ import java.util.Date;
  * @author YGKING e-mail:hrd18960706057@163.com
  * @version 1.0
  * @description
- * @className ContentVO
- * @date 2023/06/02 19:14
+ * @className UserAdminVO
+ * @date 2023/06/07 14:14
  */
 @Data
-public class ContentVO {
+public class UserAdminVO {
     private Long id;
-    private String title;
+    private String userName;
+    private String nickName;
     private String imgUrl;
-    private String brief;
-    private Integer type;
-    private String categoryName;
-    private Integer viewCount;
-    private Integer commentCount;
+    private Boolean isAdmin;
     @JsonFormat(pattern = "yyyy/MM/dd HH:mm:ss", timezone = "GMT+8")
     private Date createTime;
 }

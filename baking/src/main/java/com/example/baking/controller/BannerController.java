@@ -2,9 +2,7 @@ package com.example.baking.controller;
 
 import com.example.baking.mapper.BannerMapper;
 import com.example.baking.response.ResultVO;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 
@@ -16,13 +14,24 @@ import javax.annotation.Resource;
  * @date 2023/05/31 17:20
  */
 @RestController
-@RequestMapping("/v1/banners/")
+@RequestMapping("/v1/banners")
 public class BannerController {
     @Resource
     private BannerMapper mapper;
 
-    @GetMapping("")
+    @GetMapping("/")
     public ResultVO select() {
         return ResultVO.ok(mapper.select());
+    }
+    
+    @GetMapping("/admin")
+    public ResultVO admin() {
+        return ResultVO.ok(mapper.selectForAdmin());
+    }
+
+    @PostMapping("/{id}/delete")
+    public ResultVO delete(@PathVariable Long id) {
+        mapper.deleteById(id);
+        return ResultVO.ok();
     }
 }

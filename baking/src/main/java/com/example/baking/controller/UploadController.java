@@ -1,6 +1,7 @@
 package com.example.baking.controller;
 
 import com.example.baking.response.ResultVO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,7 +23,8 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/v1/upload")
 public class UploadController {
-
+    @Value("${filePath}")
+    private String filePath;
     @RequestMapping("")
     public ResultVO upload(MultipartFile file) throws IOException {
         // 获取文件的完整名称
@@ -33,21 +35,21 @@ public class UploadController {
         // 得到唯一文件名: UUID.randomUUID()方法可以得到一个唯一标识的16进制字符串
         fileName = UUID.randomUUID() + suffix;
 
-        String dirPath = "C:/E/files";
+        // 以当前时间的年月日作为文件路径的一部分，并作为目录创建出来
         SimpleDateFormat format = new SimpleDateFormat("/yyyy/MM/dd/");
         String datePath = format.format(new Date());
-        File dirFile = new File(dirPath + datePath);
+        File dirFile = new File(filePath + datePath);
         if (!dirFile.exists()) {
             dirFile.mkdirs();
         }
         // 把图片保存进文件夹C:/E/files/2023/06/01/xxx.jpg，异常抛出
-        file.transferTo(new File(dirPath + datePath + fileName));
+        file.transferTo(new File(filePath + datePath + fileName));
         // 把图片路径/2023/06/01/xxx.jpg返回给客户端
         return ResultVO.ok(datePath + fileName);
     }
 
     @GetMapping("remove")
     public void remove(String url) {
-        new File("C:/E/files" + url).delete();
+        new File(filePath + url).delete();
     }
 }

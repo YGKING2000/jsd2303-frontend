@@ -21,11 +21,13 @@ public class CustomUserDetails extends User {
     private Long id;
     private String nickName;
     private String imgUrl;
-    public CustomUserDetails(Long id, String nickName, String imgUrl, String username,
+    private Integer isAdmin;
+    public CustomUserDetails(Long id, String nickName, String imgUrl, Integer isAdmin, String username, 
                              String password, Collection<? extends GrantedAuthority> authorities) {
         super(username, password, authorities);
         this.id = id;
         this.nickName = nickName;
         this.imgUrl = imgUrl;
+        this.isAdmin = isAdmin;
     }
 }
