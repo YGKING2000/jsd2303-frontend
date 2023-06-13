@@ -25,6 +25,7 @@ import java.util.UUID;
 public class UploadController {
     @Value("${filePath}")
     private String filePath;
+    
     @RequestMapping("")
     public ResultVO upload(MultipartFile file) throws IOException {
         // 获取文件的完整名称

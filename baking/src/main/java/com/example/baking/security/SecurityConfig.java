@@ -22,7 +22,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean// 添加此注解的目的是为了在Controller中自动装配自定义的登录验证界面
     @Override
-    protected AuthenticationManager authenticationManager() throws Exception {
+    public AuthenticationManager authenticationManager() throws Exception {
         return super.authenticationManager();
     }
 
