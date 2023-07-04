@@ -64,6 +64,8 @@ public class UserController {
         ));
         // 将认证结果保存到Security上下文中，使得Security框架记住登录状态
         SecurityContextHolder.getContext().setAuthentication(result);
+        System.out.println(result.getPrincipal());
+        System.out.println(SecurityContextHolder.getContext().getAuthentication());
         return ResultVO.ok(result.getPrincipal());
     }
 
